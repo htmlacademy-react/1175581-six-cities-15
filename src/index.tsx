@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './app/app';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+enum Settings {
+  PlacesCount = 312,
+}
+
 root.render(
   <React.StrictMode>
-    <h1>Hello, World!</h1>
+    <App
+      placesCount={Settings.PlacesCount}
+    />
   </React.StrictMode>
 );

@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(
 );
 
 enum Settings {
-  PlacesCount = 312,
+  PlacesCount = 7,
 }
 
 root.render(

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import PlaceCardComponent from '../../components/place-card-component';
 
 type MainPageProps = {
@@ -94,12 +95,7 @@ function MainPage({ placesCount }: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCardComponent/>
-                <PlaceCardComponent/>
-                <PlaceCardComponent/>
-                <PlaceCardComponent/>
-                <PlaceCardComponent/>
-                <PlaceCardComponent/>
+                {placesCount && Array.from({ length: placesCount }).map((_, index) => (<PlaceCardComponent key={index} />))}
               </div>
             </section>
             <div className="cities__right-section">

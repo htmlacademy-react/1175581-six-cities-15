@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import PlaceCardComponent from '../../components/place-card-component';
+import PlaceCardComponent from '../../components/place-card-component/place-card-component';
 
 type MainPageProps = {
   placesCount: number;

@@ -1,6 +1,27 @@
-function PlaceCardComponent(): JSX.Element {
+import { Link } from 'react-router-dom';
+import { TOffer } from '../../types/offers-types';
+
+type PlaceCardProps = {
+  offer: TOffer;
+  handleHover: (offer?: TOffer) => void;
+}
+function PlaceCardComponent({ offer, handleHover }: PlaceCardProps): JSX.Element {
+  const { price, title, type, id } = offer;
+
+  const handleMouseOn = () => {
+    handleHover(offer);
+  };
+
+  const handleMouseOff = () => {
+    handleHover();
+  };
+
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseEnter={handleMouseOn}
+      onMouseLeave={handleMouseOff}
+    >
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
@@ -12,7 +33,7 @@ function PlaceCardComponent(): JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€120</b>
+            <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button className="place-card__bookmark-button button" type="button">
@@ -29,11 +50,11 @@ function PlaceCardComponent(): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Beautiful &amp; luxurious apartment at great location</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{type}</p>
       </div>
-    </article>
+    </article >
   );
 }
 

@@ -8,7 +8,7 @@ type PlaceCardListProps = {
 }
 
 function PlaceCardListComponent({ offers }: PlaceCardListProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<Nullable<TOffer>>(null);
+  const [ , setActiveCard] = useState<Nullable<TOffer>>(null);
   const handleHover = (offer?: TOffer) => {
     setActiveCard(offer || null);
   };

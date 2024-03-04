@@ -1,6 +1,6 @@
-import { Offer } from '../types/offers-types';
+import { TOffer } from '../types/offers-types';
 
-export const favorites: Offer[] = [
+export const favorites: TOffer[] = [
   {
     id: '6af6f711-c28d-4121-82cd-e0b462a27f001',
     title: 'Paris-title1',

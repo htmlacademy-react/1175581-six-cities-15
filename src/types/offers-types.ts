@@ -1,6 +1,6 @@
 type TCity = {
   name: string;
-  location: Location;
+  location: TLocation;
 }
 
 type TLocation = {

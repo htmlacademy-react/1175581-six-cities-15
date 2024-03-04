@@ -8,7 +8,7 @@ type PlaceCardListProps = {
 }
 
 function PlaceCardListComponent({ offers }: PlaceCardListProps): JSX.Element {
-  const [ , setActiveCard] = useState<Nullable<TOffer>>(null);
+  const [, setActiveCard] = useState<Nullable<TOffer>>(null);
   const handleHover = (offer?: TOffer) => {
     setActiveCard(offer || null);
   };
@@ -16,7 +16,14 @@ function PlaceCardListComponent({ offers }: PlaceCardListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {
-        offers.map((offer: TOffer) => <PlaceCardComponent key={offer.id} offer={offer} handleHover={handleHover} />)
+        offers.map((offer: TOffer) =>
+          (
+            <PlaceCardComponent
+              key={offer.id}
+              offer={offer}
+              handleHover={handleHover}
+            />
+          ))
       }
     </div >
   );

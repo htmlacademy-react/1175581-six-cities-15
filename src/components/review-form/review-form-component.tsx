@@ -11,11 +11,11 @@ const raitings = [
 ];
 
 function ReviewFormComponent() {
-  const [review, setReview] = useState({ rating: 0, review: '' });
-
+  const [reviewState, setReview] = useState({ rating: 0, review: '' });
+  const { rating, review } = reviewState;
   const handleChange: TChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
-    setReview({ ...review, [name]: value });
+    setReview({ ...reviewState, [name]: value });
   };
 
   return (
@@ -50,7 +50,13 @@ function ReviewFormComponent() {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={rating === 0 || review.length < 50}
+        >
+          Submit
+        </button>
       </div>
     </form>
   );

@@ -19,3 +19,4 @@
 type CitiesType = string[];
 
 export const CITIES: CitiesType = ['Paris', 'Cologne', 'Brussels', 'Hamburg', 'Dusseldorf', 'Amsterdam'];
+

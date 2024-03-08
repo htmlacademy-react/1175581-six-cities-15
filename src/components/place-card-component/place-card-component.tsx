@@ -3,17 +3,17 @@ import { TOffer } from '../../types/offers-types';
 
 type PlaceCardProps = {
   offer: TOffer;
-  handleHover: (offer?: TOffer) => void;
+  handleOfferHover: (offer?: TOffer) => void;
 }
-function PlaceCardComponent({ offer, handleHover }: PlaceCardProps): JSX.Element {
+function PlaceCardComponent({ offer, handleOfferHover }: PlaceCardProps): JSX.Element {
   const { price, title, type, id } = offer;
 
   const handleMouseOn = () => {
-    handleHover(offer);
+    handleOfferHover(offer);
   };
 
   const handleMouseOff = () => {
-    handleHover();
+    handleOfferHover();
   };
 
   return (

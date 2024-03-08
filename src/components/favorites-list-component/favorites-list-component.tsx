@@ -13,7 +13,12 @@ function FavoritesListComponent({ favorites }: FavoritesListProps): JSX.Element 
     <ul className="favorites__list">
       {CITIES.map((city) => {
         const currentfavorites = favorites.filter((offer) => offer.city.name === city);
-        return currentfavorites.length !== 0 ? <FavoritesLocationItemComponent key = {city} cityName = {city}currentFavorites = {currentfavorites}/> : '';
+        return currentfavorites.length !== 0 ?
+          <FavoritesLocationItemComponent
+            key={city}
+            cityName={city}
+            currentFavorites={currentfavorites}
+          /> : '';
       })}
     </ul>
   );

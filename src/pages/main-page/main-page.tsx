@@ -1,5 +1,9 @@
 import PlaceCardListComponent from '../../components/place-card-list-component/place-card-list-component';
+import MapComponent from '../../components/map-component/map-component';
 import { TOffer } from '../../types/offers-types';
+import { city } from '../../mocks/offers.ts';
+import { useState } from 'react';
+
 
 type MainPageProps = {
   placesCount: number;
@@ -7,6 +11,14 @@ type MainPageProps = {
 }
 
 function MainPage({ placesCount, offers }: MainPageProps): JSX.Element {
+  const [selectedOffer, setSelectedOffer] = useState<TOffer | null>(null);
+
+  const handleOfferHover = (offer?: TOffer) : void => {
+
+    setSelectedOffer(offer || null);
+
+  };
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -66,10 +78,13 @@ function MainPage({ placesCount, offers }: MainPageProps): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <PlaceCardListComponent offers={offers} />
+            <PlaceCardListComponent
+              offers={offers}
+              onOfferHover = {handleOfferHover}
+            />
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map" />
+            <MapComponent offers={offers} city={city} selectedOffer = {selectedOffer} />
           </div>
         </div>
       </div>

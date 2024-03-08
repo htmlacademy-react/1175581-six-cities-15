@@ -9,16 +9,16 @@ type OfferPageProps = {
   authorizationStatus: AuthorizationStatus;
 }
 
-function OfferPage({offers, authorizationStatus} : OfferPageProps): JSX.Element {
+function OfferPage({ offers, authorizationStatus }: OfferPageProps): JSX.Element {
 
   const { id } = useParams();
   const currentOffer: TOffer | undefined = offers.find((offer: TOffer) => offer.id === id);
 
-  if(!currentOffer) {
-    return(<NotFoundPage/>);
+  if (!currentOffer) {
+    return (<NotFoundPage />);
   }
 
-  const {price, title} = currentOffer;
+  const { price, title } = currentOffer;
 
   return (
     <main className="page__main page__main--offer">
@@ -142,7 +142,9 @@ function OfferPage({offers, authorizationStatus} : OfferPageProps): JSX.Element 
             </div>
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
-              <ReviewsComponent authorizationStatus= {authorizationStatus}/>
+              <ReviewsComponent
+                authorizationStatus={authorizationStatus}
+              />
             </section>
           </div>
         </div>

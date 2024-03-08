@@ -1,12 +1,12 @@
-type TCity = {
-  name: string;
-  location: TLocation;
-}
-
 type TLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
+}
+
+export type TCity = {
+  name: string;
+  location: TLocation;
 }
 
 export type TOffer = {

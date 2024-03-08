@@ -17,7 +17,13 @@ function FavoritesLocationComponent({ cityName, currentFavorites }: FavoritesLoc
         </div>
       </div>
       <div className="favorites__places">
-        {currentFavorites.map((currentFavorite) => <FavoriteArticleComponent key={currentFavorite.id} currentFavorite={currentFavorite} />)}
+        {currentFavorites.map((currentFavorite) =>
+          (
+            <FavoriteArticleComponent
+              key={currentFavorite.id}
+              currentFavorite={currentFavorite}
+            />
+          ))}
       </div>
     </li>
   );

@@ -1,9 +1,23 @@
 import ReviewComponent from '../review-component/review-component';
+import { TReview } from '../../types/reviews-types';
 
-function ReviewsListComponent(): JSX.Element {
+type RewiewsListComponentProps = {
+  reviews: TReview[];
+}
+
+function ReviewsListComponent({ reviews }: RewiewsListComponentProps): JSX.Element {
   return (
     <ul className="reviews__list">
-      <ReviewComponent />
+      {
+        reviews.map((review: TReview) =>
+          (
+            <ReviewComponent
+              key={review.id}
+              review={review}
+            />
+          ))
+      }
+
     </ul>
   );
 }

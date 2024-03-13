@@ -11,13 +11,13 @@ export const offers: TOffer[] = [
       location: {
         latitude: 52.3909553943508,
         longitude: 4.85309666406198,
-        zoom: 8
+        zoom: 11
       }
     },
     location: {
       latitude: 52.3909553943508,
       longitude: 4.85309666406198,
-      zoom: 8
+      zoom: 11
     },
     isFavorite: false,
     isPremium: false,
@@ -34,13 +34,13 @@ export const offers: TOffer[] = [
       location: {
         latitude: 52.3609553943508,
         longitude: 4.85309666406198,
-        zoom: 8
+        zoom: 11
       }
     },
     location: {
       latitude: 52.3609553943508,
       longitude: 4.85309666406198,
-      zoom: 8
+      zoom: 11
     },
     isFavorite: false,
     isPremium: false,
@@ -57,13 +57,13 @@ export const offers: TOffer[] = [
       location: {
         latitude: 52.3909553943508,
         longitude: 4.929309666406198,
-        zoom: 8
+        zoom: 11
       }
     },
     location: {
       latitude: 52.3909553943508,
       longitude: 4.929309666406198,
-      zoom: 8
+      zoom: 11
     },
     isFavorite: false,
     isPremium: false,
@@ -80,13 +80,13 @@ export const offers: TOffer[] = [
       location: {
         latitude: 52.3809553943508,
         longitude: 4.939309666406198,
-        zoom: 8
+        zoom: 11
       }
     },
     location: {
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
-      zoom: 8
+      zoom: 11
     },
     isFavorite: false,
     isPremium: false,
@@ -98,9 +98,9 @@ export const offers: TOffer[] = [
 export const city: TCity = {
   name: 'Amsterdam',
   location: {
-    latitude: 52.35514938496378,
-    longitude: 4.673877537499948,
-    zoom: 8
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
+    zoom: 11
   }
 };
 

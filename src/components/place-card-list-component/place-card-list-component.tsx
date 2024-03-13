@@ -17,6 +17,7 @@ function PlaceCardListComponent({ offers, onOfferHover }: PlaceCardListProps): J
               key={offer.id}
               offer={offer}
               handleOfferHover={onOfferHover}
+              block="cities"
             />
           ))
       }

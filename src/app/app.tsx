@@ -1,4 +1,5 @@
 import { TOffer } from '../types/offers-types';
+import { TReview } from '../types/reviews-types';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from '../consts/route-consts';
@@ -14,11 +15,12 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 type AppPageProps = {
   placesCount: number;
   offers: TOffer[];
+  reviews: TReview[];
   favorites: TOffer[];
   authorizationStatus: AuthorizationStatus;
 }
 
-function App({ placesCount, offers, favorites, authorizationStatus }: AppPageProps): JSX.Element {
+function App({ placesCount, offers, reviews, favorites, authorizationStatus }: AppPageProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -46,7 +48,7 @@ function App({ placesCount, offers, favorites, authorizationStatus }: AppPagePro
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferPage authorizationStatus= {authorizationStatus} offers={offers} />}
+              element={<OfferPage authorizationStatus= {authorizationStatus} offers={offers} reviews= {reviews} />}
             />
             <Route
               path="*"

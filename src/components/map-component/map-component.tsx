@@ -6,12 +6,13 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 
 type MapComponentProps = {
+  className?: string;
   offers: TOffer[];
   city: TCity;
-  selectedOffer: TOffer | null;
+  selectedOffer?: TOffer | null;
 }
 
-function MapComponent({ offers, city, selectedOffer }: MapComponentProps): JSX.Element {
+function MapComponent({ offers, city, selectedOffer, className }: MapComponentProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -36,16 +37,16 @@ function MapComponent({ offers, city, selectedOffer }: MapComponentProps): JSX.E
             lat: offer.city.location.latitude,
             lng: offer.city.location.longitude,
           }, {
-            icon: selectedOffer !== null && offer.id === selectedOffer.id ? currentCustomIcon : defaultCustomIcon
+            icon: selectedOffer && offer.id === selectedOffer.id ? currentCustomIcon : defaultCustomIcon
           })
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOffer]);
+  }, [currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
 
   return (
     <section
-      className="cities__map map"
+      className= {className ? className : 'cities__map map'}
       ref={mapRef}
     />
   );

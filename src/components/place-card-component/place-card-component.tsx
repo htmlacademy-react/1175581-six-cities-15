@@ -29,7 +29,7 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
         </div>
         <div className="cities__image-wrapper place-card__image-wrapper">
           <div>
-            <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place image" />
+            <img className="place-card__image" src={offer.previewImage} width={260} height={200} alt="Place image" />
           </div>
         </div>
         <div className="place-card__info">

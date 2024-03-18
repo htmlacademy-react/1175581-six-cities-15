@@ -1,10 +1,10 @@
-import { TOffer } from '../types/offers-types';
-import { TReview } from '../types/reviews-types';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from '../consts/route-consts';
 import PrivateRoute from '../components/private-route/private-route';
+
 import { AuthorizationStatus } from '../consts/route-consts';
+
 import Layout from '../pages/layout/layout';
 import MainPage from '../pages/main-page/main-page';
 import LoginPage from '../pages/login-page/login-page';
@@ -12,15 +12,16 @@ import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
+import { TOffer } from '../types/offers-types';
+import { TReview } from '../types/reviews-types';
+
 type AppPageProps = {
-  placesCount: number;
-  offers: TOffer[];
   reviews: TReview[];
   favorites: TOffer[];
   authorizationStatus: AuthorizationStatus;
 }
 
-function App({ placesCount, offers, reviews, favorites, authorizationStatus }: AppPageProps): JSX.Element {
+function App({ reviews, favorites, authorizationStatus }: AppPageProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -31,7 +32,7 @@ function App({ placesCount, offers, reviews, favorites, authorizationStatus }: A
           >
             <Route
               index
-              element={<MainPage placesCount={placesCount} offers={offers} />}
+              element={<MainPage />}
             />
             <Route
               path={AppRoute.Login}
@@ -48,7 +49,7 @@ function App({ placesCount, offers, reviews, favorites, authorizationStatus }: A
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferPage authorizationStatus= {authorizationStatus} offers={offers} reviews= {reviews} />}
+              element={<OfferPage authorizationStatus={authorizationStatus} reviews={reviews} />}
             />
             <Route
               path="*"

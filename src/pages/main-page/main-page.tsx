@@ -1,19 +1,24 @@
 import PlaceCardListComponent from '../../components/place-card-list-component/place-card-list-component';
+import LocationsListComponent from '../../components/locations-list-component/locations-list-component.tsx';
 import MapComponent from '../../components/map-component/map-component';
-import { TOffer } from '../../types/offers-types';
-import { city } from '../../mocks/offers.ts';
+
 import { useState } from 'react';
+import { useAppSelector } from '../../hooks/index.ts';
+
+import { TOffer } from '../../types/offers-types';
+import { cities } from '../../consts/cities.ts';
 
 
-type MainPageProps = {
-  placesCount: number;
-  offers: TOffer[];
-}
+function MainPage(): JSX.Element {
 
-function MainPage({ placesCount, offers }: MainPageProps): JSX.Element {
+
+  const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector((state) => state.city);
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+
   const [selectedOffer, setSelectedOffer] = useState<TOffer | null>(null);
 
-  const handleOfferHover = (offer?: TOffer) : void => {
+  const handleOfferHover = (offer?: TOffer): void => {
 
     setSelectedOffer(offer || null);
 
@@ -23,46 +28,13 @@ function MainPage({ placesCount, offers }: MainPageProps): JSX.Element {
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
-        </section>
+        <LocationsListComponent cities={cities} currentCity= {currentCity} />
       </div>
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+            <b className="places__found">{currentOffers.length} places to stay in {currentCity.name}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -79,12 +51,12 @@ function MainPage({ placesCount, offers }: MainPageProps): JSX.Element {
               </ul>
             </form>
             <PlaceCardListComponent
-              offers={offers}
-              onOfferHover = {handleOfferHover}
+              offers={currentOffers}
+              onOfferHover={handleOfferHover}
             />
           </section>
           <div className="cities__right-section">
-            <MapComponent offers={offers} city={city} selectedOffer = {selectedOffer} />
+            <MapComponent offers={currentOffers} city={currentCity} selectedOffer={selectedOffer} />
           </div>
         </div>
       </div>

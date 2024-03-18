@@ -1,7 +1,7 @@
 import { TOffer, TCity } from '../../types/offers-types';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from './../../consts/leaflet.js';
 import useMap from './useMap.tsx';
-import leaflet from 'leaflet';
+import leaflet, { LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 
@@ -15,7 +15,7 @@ type MapComponentProps = {
 function MapComponent({ offers, city, selectedOffer, className }: MapComponentProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
+  const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
@@ -31,22 +31,30 @@ function MapComponent({ offers, city, selectedOffer, className }: MapComponentPr
 
   useEffect(() => {
     if (map) {
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+      markerLayer.current.addTo(map);
+      markerLayer.current.clearLayers();
+    }
+  }, [city, map]);
+
+  useEffect(() => {
+    if (map) {
       offers.forEach((offer) => {
         leaflet
           .marker({
-            lat: offer.city.location.latitude,
-            lng: offer.city.location.longitude,
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
           }, {
             icon: selectedOffer && offer.id === selectedOffer.id ? currentCustomIcon : defaultCustomIcon
           })
           .addTo(map);
       });
     }
-  }, [currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
+  }, [city.location.latitude, city.location.longitude, city.location.zoom, currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
 
   return (
     <section
-      className= {className ? className : 'cities__map map'}
+      className={className ? className : 'cities__map map'}
       ref={mapRef}
     />
   );

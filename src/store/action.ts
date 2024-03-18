@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
+import { TCity } from '../types/offers-types';
 
 
-export const changeCity = createAction('changeCity');
+export const changeCity = createAction<TCity>('changeCity');
 
-export const fillPlaceCardList = createAction('fillPlaceCardList');

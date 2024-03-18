@@ -1,5 +1,6 @@
-import { TOffer } from '../../types/offers-types';
 import FavoriteArticleComponent from '../favorite-article-component/favorite-article-component';
+
+import { TOffer } from '../../types/offers-types';
 
 type FavoritesLocationProps = {
   cityName: string;

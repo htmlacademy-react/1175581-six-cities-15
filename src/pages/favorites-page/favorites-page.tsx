@@ -1,4 +1,5 @@
 import FavoritesListComponent from '../../components/favorites-list-component/favorites-list-component';
+
 import { TOffer } from '../../types/offers-types';
 
 type FavoritePageProps = {

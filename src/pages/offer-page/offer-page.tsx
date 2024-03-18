@@ -1,19 +1,24 @@
 import { useParams } from 'react-router-dom';
-import { TOffer } from '../../types/offers-types';
-import { TReview } from '../../types/reviews-types';
+import { useAppSelector } from '../../hooks';
+
 import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsComponent from '../../components/reviews/reviews-component';
-import { AuthorizationStatus } from '../../consts/route-consts';
 import MapComponent from '../../components/map-component/map-component';
 import PlaceCardComponent from '../../components/place-card-component/place-card-component';
 
+import { AuthorizationStatus } from '../../consts/route-consts';
+
+import { TOffer } from '../../types/offers-types';
+import { TReview } from '../../types/reviews-types';
+
 type OfferPageProps = {
-  offers: TOffer[];
   reviews: TReview[];
   authorizationStatus: AuthorizationStatus;
 }
 
-function OfferPage({ offers, reviews, authorizationStatus }: OfferPageProps): JSX.Element {
+function OfferPage({ reviews, authorizationStatus }: OfferPageProps): JSX.Element {
+
+  const offers = useAppSelector((state) => state.offers);
 
   const { id } = useParams();
   const currentOffer: TOffer | undefined = offers.find((offer: TOffer) => offer.id === id);
@@ -153,7 +158,7 @@ function OfferPage({ offers, reviews, authorizationStatus }: OfferPageProps): JS
             </section>
           </div>
         </div>
-        <MapComponent offers={offers} city={currentOffer.city} className={'offer__map map'} selectedOffer= {currentOffer}/>
+        <MapComponent offers={offers} city={currentOffer.city} className={'offer__map map'} selectedOffer={currentOffer} />
       </section>
       <div className="container">
         <section className="near-places places">

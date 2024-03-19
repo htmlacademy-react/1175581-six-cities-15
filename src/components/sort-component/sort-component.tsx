@@ -1,27 +1,25 @@
 import { useDispatch } from 'react-redux';
-import { sort, sortName } from '../../store/action';
-import type { TSortValue } from '../sort-list-component/sort-types';
-import { SortTypesEnum } from '../../store/reducer';
+import { sort } from '../../store/action';
+import { sortTypes } from '../../consts/sort';
+import type { SortType } from '../../store/reducer';
 
 type SortComponentProps = {
-  sortValue: TSortValue;
+  type: string;
+  sortType: SortType;
 }
 
-function SortComponent({sortValue}: SortComponentProps): JSX.Element {
+function SortComponent({ type, sortType }: SortComponentProps): JSX.Element {
   const dispatch = useDispatch();
 
   return (
     <li
       className="places__option places__option--active"
-      data-sort={sortValue.action}
       tabIndex={0}
-      onClick={(evt) => {
-        const value = (evt.target as HTMLLIElement).dataset;
-        dispatch(sort(value.sort as SortTypesEnum));
-        dispatch(sortName(sortValue.name));
+      onClick={() => {
+        dispatch(sort(sortTypes[type as keyof typeof sortTypes] as SortType));
       }}
     >
-      {sortValue.name}
+      {sortType.name}
     </li>
   );
 }

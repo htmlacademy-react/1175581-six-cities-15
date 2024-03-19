@@ -8,12 +8,12 @@ import { useAppSelector } from '../../hooks/index.ts';
 
 import { TOffer } from '../../types/offers-types';
 import { cities } from '../../consts/cities.ts';
-import { SortTypes } from '../../store/reducer.ts';
+import { sortTypes } from '../../consts/sort.ts';
 
 
 function MainPage(): JSX.Element {
 
-  const sortType = useAppSelector((state) => state.sortType);
+  const sortType = useAppSelector((state) => state.sortType.value);
 
   const currentCity = useAppSelector((state) => state.city);
 
@@ -33,13 +33,13 @@ function MainPage(): JSX.Element {
 
 
   switch (sortType) {
-    case SortTypes.LowToHigh:
+    case sortTypes.LowToHigh.value:
       filteredOffers.sort((a, b) => a.price - b.price);
       break;
-    case SortTypes.HighToLow:
+    case sortTypes.HighToLow.value:
       filteredOffers.sort((a, b) => b.price - a.price);
       break;
-    case SortTypes.TopRatedFirst:
+    case sortTypes.TopRatedFirst.value:
       filteredOffers.sort((a, b) => a.rating - b.rating);
       break;
     default:

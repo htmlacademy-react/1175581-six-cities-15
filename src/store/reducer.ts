@@ -1,31 +1,26 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, sort, sortList, sortName } from './action';
+import { changeCity, sort, sortList } from './action';
 import { offers } from '../mocks/offers';
 import { cities } from '../consts/cities';
 import { TOffer, TCity } from '../types/offers-types';
+import { sortTypes } from '../consts/sort';
 
 
-export enum SortTypes {
-  Default = 'Default',
-  LowToHigh = 'LowToHigh',
-  HighToLow = 'HighToLow',
-  TopRatedFirst = 'TopRatedFirst',
-}
-
-export type SortTypesEnum = typeof SortTypes[keyof typeof SortTypes];
+export type SortType = {
+  name: string;
+  value: string;
+};
 
 type OffersState = {
   isSortOpened: boolean;
-  sortType: SortTypesEnum;
-  sortName: string;
+  sortType: SortType;
   city: TCity;
   offers: TOffer[];
 }
 
 const initialState: OffersState = {
   isSortOpened: false,
-  sortType: SortTypes.Default,
-  sortName: 'Popular',
+  sortType: sortTypes.Default,
   city: cities[0],
   offers: offers,
 };
@@ -40,9 +35,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(sortList, (state, action) => {
       state.isSortOpened = action.payload;
-    })
-    .addCase(sortName, (state, action) => {
-      state.sortName = action.payload;
     });
 });
 

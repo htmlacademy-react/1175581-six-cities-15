@@ -1,9 +1,10 @@
 import { useAppDispatch } from '../../hooks';
-import { changeCity } from '../../store/action';
+import { changeCity, sort } from '../../store/action';
 
 import cn from 'classnames';
 
 import { TCity } from '../../types/offers-types';
+import { sortTypes } from '../../consts/sort';
 
 
 type LocationComponentProps = {
@@ -25,6 +26,7 @@ function LocationComponent({ city, currentCity }: LocationComponentProps): JSX.E
         onClick={(evt) => {
           evt.preventDefault();
           dispatch(changeCity(city));
+          dispatch(sort(sortTypes.Default));
         }}
       >
         <span>{city.name}</span>

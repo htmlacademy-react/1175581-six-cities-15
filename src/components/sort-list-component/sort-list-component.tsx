@@ -1,14 +1,13 @@
-import { SortTypes } from '../../store/reducer';
-import type { TSortValue } from './sort-types';
 import SortComponent from '../sort-component/sort-component';
 import { useAppSelector } from '../../hooks';
 import { useDispatch } from 'react-redux';
 import { sortList } from '../../store/action';
+import { sortTypes } from '../../consts/sort';
 
 function SortListComponent(): JSX.Element {
 
   let isSortOpened = useAppSelector((state) => state.isSortOpened);
-  const sortName = useAppSelector((state) => state.sortName);
+  const sortName = useAppSelector((state) => state.sortType.name);
   const dispatch = useDispatch();
 
   const showSort = () => {
@@ -22,25 +21,6 @@ function SortListComponent(): JSX.Element {
     dispatch(sortList(isSortOpened));
   };
 
-
-  const sortValues: TSortValue[] = [
-    {
-      name: 'Popular',
-      action: SortTypes.Default
-    },
-    {
-      name: 'Price: low to high',
-      action: SortTypes.LowToHigh
-    },
-    {
-      name: 'Price: high to low',
-      action: SortTypes.HighToLow
-    },
-    {
-      name: 'Top rated first',
-      action: SortTypes.TopRatedFirst
-    }
-  ];
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -60,10 +40,7 @@ function SortListComponent(): JSX.Element {
         onClick={closeSort}
       >
         {
-          sortValues.map((sortValue: TSortValue) =>
-            (
-              <SortComponent key={sortValue.name} sortValue={sortValue} />
-            ))
+          Object.entries(sortTypes).map(([key, sortType]) => (<SortComponent key={key} sortType={sortType} type={key}/>))
         }
       </ul>
     </form>

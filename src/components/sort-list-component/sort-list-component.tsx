@@ -1,7 +1,7 @@
 import SortComponent from '../sort-component/sort-component';
 import { useAppSelector } from '../../hooks';
 import { useDispatch } from 'react-redux';
-import { sortList } from '../../store/action';
+import { DisplaySortList } from '../../store/action';
 import { sortTypes } from '../../consts/sort';
 
 function SortListComponent(): JSX.Element {
@@ -12,19 +12,19 @@ function SortListComponent(): JSX.Element {
 
   const showSort = () => {
     isSortOpened = true;
-    dispatch(sortList(isSortOpened));
+    dispatch(DisplaySortList(isSortOpened));
   };
 
 
   const closeSort = () => {
     isSortOpened = false;
-    dispatch(sortList(isSortOpened));
+    dispatch(DisplaySortList(isSortOpened));
   };
 
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-caption">{'Sort by '}</span>
       <span
         className="places__sorting-type"
         tabIndex={0}

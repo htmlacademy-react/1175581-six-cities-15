@@ -1,6 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus } from './action';
-import { offers } from '../mocks/offers';
 import { cities } from '../consts/cities';
 import { TOffer, TCity } from '../types/offers-types';
 import { sortTypes } from '../consts/sort';

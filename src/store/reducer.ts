@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, sort, DisplaySortList, loadOffers, setError } from './action';
+import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus } from './action';
 import { offers } from '../mocks/offers';
 import { cities } from '../consts/cities';
 import { TOffer, TCity } from '../types/offers-types';
@@ -17,6 +17,7 @@ type OffersState = {
   city: TCity;
   offers: TOffer[];
   error: string | null;
+  loadingOffersStatus: boolean;
 }
 
 const initialState: OffersState = {
@@ -24,7 +25,8 @@ const initialState: OffersState = {
   sortType: sortTypes.Default,
   city: cities[0],
   offers: [],
-  error: null
+  error: null,
+  loadingOffersStatus: true
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -40,6 +42,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(setLoadingOffersStatus, (state, action) => {
+      state.loadingOffersStatus = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

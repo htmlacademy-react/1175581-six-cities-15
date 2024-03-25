@@ -11,6 +11,8 @@ export const DisplaySortList = createAction<boolean>('DisplaySortList');
 
 export const loadOffers = createAction<TOffer[]>('loadOffers');
 
+export const setLoadingOffersStatus = createAction<boolean>('true');
+
 export const setError = createAction<string | null>('setError');
 
 

@@ -6,19 +6,17 @@ import ReviewsComponent from '../../components/reviews/reviews-component';
 import MapComponent from '../../components/map-component/map-component';
 import PlaceCardComponent from '../../components/place-card-component/place-card-component';
 
-import { AuthorizationStatus } from '../../consts/route-consts';
-
 import { TOffer } from '../../types/offers-types';
 import { TReview } from '../../types/reviews-types';
 
 type OfferPageProps = {
   reviews: TReview[];
-  authorizationStatus: AuthorizationStatus;
 }
 
-function OfferPage({ reviews, authorizationStatus }: OfferPageProps): JSX.Element {
+function OfferPage({ reviews }: OfferPageProps): JSX.Element {
 
   const offers = useAppSelector((state) => state.offers);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const { id } = useParams();
   const currentOffer: TOffer | undefined = offers.find((offer: TOffer) => offer.id === id);

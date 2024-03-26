@@ -1,8 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus } from './action';
+import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus } from './action';
 import { cities } from '../consts/cities';
 import { TOffer, TCity } from '../types/offers-types';
 import { sortTypes } from '../consts/sort';
+import { AuthorizationStatus } from '../consts/route-consts';
 
 
 export type SortType = {
@@ -17,6 +18,7 @@ type OffersState = {
   offers: TOffer[];
   error: string | null;
   loadingOffersStatus: boolean;
+  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: OffersState = {
@@ -25,7 +27,8 @@ const initialState: OffersState = {
   city: cities[0],
   offers: [],
   error: null,
-  loadingOffersStatus: true
+  loadingOffersStatus: true,
+  authorizationStatus: AuthorizationStatus.Unknown
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -44,6 +47,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoadingOffersStatus, (state, action) => {
       state.loadingOffersStatus = action.payload;
+    })
+    .addCase(requireAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

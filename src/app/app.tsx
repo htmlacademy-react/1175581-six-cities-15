@@ -1,10 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from '../consts/route-consts';
 import PrivateRoute from '../components/private-route/private-route';
-
-import { AuthorizationStatus } from '../consts/route-consts';
-
 import Layout from '../pages/layout/layout';
 import MainPage from '../pages/main-page/main-page';
 import LoginPage from '../pages/login-page/login-page';
@@ -16,14 +13,15 @@ import { TOffer } from '../types/offers-types';
 import { TReview } from '../types/reviews-types';
 import { useAppSelector } from '../hooks';
 import LoaderComponent from '../components/loader-component/loader-component';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../history-route/browser-history';
 
 type AppPageProps = {
   reviews: TReview[];
   favorites: TOffer[];
-  authorizationStatus: AuthorizationStatus;
 }
 
-function App({ reviews, favorites, authorizationStatus }: AppPageProps): JSX.Element {
+function App({ reviews, favorites }: AppPageProps): JSX.Element {
 
   const loadingOfferStatus = useAppSelector((state) => state.loadingOffersStatus);
 
@@ -33,7 +31,7 @@ function App({ reviews, favorites, authorizationStatus }: AppPageProps): JSX.Ele
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Main}
@@ -51,14 +49,14 @@ function App({ reviews, favorites, authorizationStatus }: AppPageProps): JSX.Ele
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={authorizationStatus}>
+                <PrivateRoute >
                   <FavoritesPage favorites={favorites} />
                 </PrivateRoute>
               }
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferPage authorizationStatus={authorizationStatus} reviews={reviews} />}
+              element={<OfferPage reviews={reviews} />}
             />
             <Route
               path="*"
@@ -66,7 +64,7 @@ function App({ reviews, favorites, authorizationStatus }: AppPageProps): JSX.Ele
             />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </ HistoryRouter>
     </HelmetProvider>
   );
 }

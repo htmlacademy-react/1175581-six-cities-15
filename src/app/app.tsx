@@ -14,6 +14,8 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 import { TOffer } from '../types/offers-types';
 import { TReview } from '../types/reviews-types';
+import { useAppSelector } from '../hooks';
+import LoaderComponent from '../components/loader-component/loader-component';
 
 type AppPageProps = {
   reviews: TReview[];
@@ -22,6 +24,13 @@ type AppPageProps = {
 }
 
 function App({ reviews, favorites, authorizationStatus }: AppPageProps): JSX.Element {
+
+  const loadingOfferStatus = useAppSelector((state) => state.loadingOffersStatus);
+
+  if (loadingOfferStatus) {
+    return <LoaderComponent />;
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>

@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 
 import NotFoundPage from '../not-found-page/not-found-page';
@@ -16,16 +15,14 @@ type OfferPageProps = {
 function OfferPage({ reviews }: OfferPageProps): JSX.Element {
 
   const offers = useAppSelector((state) => state.offers);
+  const fullOffer = useAppSelector((state) => state.fullOffer);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  const { id } = useParams();
-  const currentOffer: TOffer | undefined = offers.find((offer: TOffer) => offer.id === id);
-
-  if (!currentOffer) {
+  if (!fullOffer) {
     return (<NotFoundPage />);
   }
 
-  const { price, title } = currentOffer;
+  const { price, title } = fullOffer;
 
   return (
     <main className="page__main page__main--offer">
@@ -156,7 +153,7 @@ function OfferPage({ reviews }: OfferPageProps): JSX.Element {
             </section>
           </div>
         </div>
-        <MapComponent offers={offers} city={currentOffer.city} className={'offer__map map'} selectedOffer={currentOffer} />
+        <MapComponent offers={offers} city={fullOffer.city} className={'offer__map map'} selectedOffer={fullOffer} />
       </section>
       <div className="container">
         <section className="near-places places">

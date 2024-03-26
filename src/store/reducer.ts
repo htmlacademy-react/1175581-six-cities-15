@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus } from './action';
+import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer } from './action';
 import { cities } from '../consts/cities';
-import { TOffer, TCity } from '../types/offers-types';
+import { TOffer, TCity, TFullOffer } from '../types/offers-types';
 import { sortTypes } from '../consts/sort';
 import { AuthorizationStatus } from '../consts/route-consts';
 
@@ -11,14 +11,16 @@ export type SortType = {
   value: string;
 };
 
+
 type OffersState = {
   isSortOpened: boolean;
   sortType: SortType;
   city: TCity;
   offers: TOffer[];
+  fullOffer: TFullOffer | null;
   error: string | null;
-  loadingOffersStatus: boolean;
-  authorizationStatus: AuthorizationStatus;
+loadingOffersStatus: boolean;
+authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: OffersState = {
@@ -26,6 +28,7 @@ const initialState: OffersState = {
   sortType: sortTypes.Default,
   city: cities[0],
   offers: [],
+  fullOffer: null,
   error: null,
   loadingOffersStatus: true,
   authorizationStatus: AuthorizationStatus.Unknown
@@ -53,6 +56,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(setFullOffer, (state, action) => {
+      state.fullOffer = action.payload;
     });
 });
 

@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../consts/api';
-import { loadOffers, redirectToRoute, requireAuthorizationStatus, setLoadingOffersStatus } from './action';
-import { TOffer } from '../types/offers-types';
+import { loadOffers, redirectToRoute, requireAuthorizationStatus, setFullOffer, setLoadingOffersStatus } from './action';
+import { TFullOffer, TOffer } from '../types/offers-types';
 import { AppRoute, AuthorizationStatus } from '../consts/route-consts';
 import { AuthData, UserData } from '../consts/auth';
 import { dropToken, saveToken } from '../services/token';
@@ -66,6 +66,22 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuthorizationStatus(AuthorizationStatus.NoAuth));
+  }
+);
+
+export const getOfferAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'getOffer',
+  async (id, { dispatch, extra: api }) => {
+
+    const { data } = await api.get<TFullOffer>(`${APIRoute.Offers}/${id}`);
+
+    dispatch(setFullOffer(data));
+
+    dispatch(redirectToRoute(AppRoute.Offer.replace(':id', String(id))));
   }
 );
 

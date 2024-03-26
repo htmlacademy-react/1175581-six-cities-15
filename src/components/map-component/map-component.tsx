@@ -1,4 +1,4 @@
-import { TOffer, TCity } from '../../types/offers-types';
+import { TOffer, TCity, TFullOffer } from '../../types/offers-types';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from './../../consts/leaflet.js';
 import useMap from './useMap.tsx';
 import leaflet, { LayerGroup } from 'leaflet';
@@ -9,7 +9,7 @@ type MapComponentProps = {
   className?: string;
   offers: TOffer[];
   city: TCity;
-  selectedOffer?: TOffer | null;
+  selectedOffer?: TFullOffer | TOffer| null;
 }
 
 function MapComponent({ offers, city, selectedOffer, className }: MapComponentProps): JSX.Element {

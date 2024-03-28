@@ -10,18 +10,16 @@ import OfferPage from '../pages/offer-page/offer-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 import { TOffer } from '../types/offers-types';
-import { TReview } from '../types/reviews-types';
 import { useAppSelector } from '../hooks';
 import LoaderComponent from '../components/loader-component/loader-component';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../history-route/browser-history';
 
 type AppPageProps = {
-  reviews: TReview[];
   favorites: TOffer[];
 }
 
-function App({ reviews, favorites }: AppPageProps): JSX.Element {
+function App({ favorites }: AppPageProps): JSX.Element {
 
   const loadingOfferStatus = useAppSelector((state) => state.loadingOffersStatus);
 
@@ -56,7 +54,7 @@ function App({ reviews, favorites }: AppPageProps): JSX.Element {
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferPage reviews={reviews} />}
+              element={<OfferPage />}
             />
             <Route
               path="*"

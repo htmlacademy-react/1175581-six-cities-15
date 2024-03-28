@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer } from './action';
+import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments } from './action';
 import { cities } from '../consts/cities';
-import { TOffer, TCity, TFullOffer } from '../types/offers-types';
+import { TOffer, TCity, TFullOffer, TComment } from '../types/offers-types';
 import { sortTypes } from '../consts/sort';
 import { AuthorizationStatus } from '../consts/route-consts';
 
@@ -18,9 +18,11 @@ type OffersState = {
   city: TCity;
   offers: TOffer[];
   fullOffer: TFullOffer | null;
+  comments: TComment[];
+  newComment: TComment | null;
   error: string | null;
-loadingOffersStatus: boolean;
-authorizationStatus: AuthorizationStatus;
+  loadingOffersStatus: boolean;
+  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: OffersState = {
@@ -29,6 +31,8 @@ const initialState: OffersState = {
   city: cities[0],
   offers: [],
   fullOffer: null,
+  comments: [],
+  newComment: null,
   error: null,
   loadingOffersStatus: true,
   authorizationStatus: AuthorizationStatus.Unknown
@@ -59,6 +63,13 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setFullOffer, (state, action) => {
       state.fullOffer = action.payload;
+    })
+    .addCase(setNewComment, (state, action) => {
+      state.newComment = action.payload;
+      state.comments.push(action.payload);
+    })
+    .addCase(setComments, (state, action) => {
+      state.comments = action.payload;
     });
 });
 

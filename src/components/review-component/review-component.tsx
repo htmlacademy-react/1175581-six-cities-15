@@ -1,11 +1,11 @@
-import { TReview } from '../../types/reviews-types';
+import { TComment } from '../../types/offers-types';
 
 type ReviewComponentProps = {
-  review: TReview;
+  commentItem: TComment;
 }
 
-function ReviewComponent({ review }: ReviewComponentProps): JSX.Element {
-  const { date, user, comment } = review;
+function ReviewComponent({ commentItem }: ReviewComponentProps): JSX.Element {
+  const { date, user, comment } = commentItem;
 
   return (
     <li className="reviews__item">

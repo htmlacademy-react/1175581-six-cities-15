@@ -1,22 +1,19 @@
-import { useAppSelector } from '../../hooks';
-
 import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsComponent from '../../components/reviews/reviews-component';
 import MapComponent from '../../components/map-component/map-component';
 import PlaceCardComponent from '../../components/place-card-component/place-card-component';
-
 import { TOffer } from '../../types/offers-types';
-import { TReview } from '../../types/reviews-types';
+import { store } from '../..';
+import { fetchCommentsAction } from '../../store/api-actions';
+import { useAppSelector } from '../../hooks';
 
-type OfferPageProps = {
-  reviews: TReview[];
-}
-
-function OfferPage({ reviews }: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
 
   const offers = useAppSelector((state) => state.offers);
   const fullOffer = useAppSelector((state) => state.fullOffer);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  store.dispatch(fetchCommentsAction());
 
   if (!fullOffer) {
     return (<NotFoundPage />);
@@ -148,7 +145,6 @@ function OfferPage({ reviews }: OfferPageProps): JSX.Element {
               <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
               <ReviewsComponent
                 authorizationStatus={authorizationStatus}
-                reviews={reviews}
               />
             </section>
           </div>

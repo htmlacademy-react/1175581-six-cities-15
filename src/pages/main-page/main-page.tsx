@@ -6,7 +6,7 @@ import SortListComponent from '../../components/sort-list-component/sort-list-co
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks/index.ts';
 
-import { TOffer } from '../../types/offers-types';
+import { TFullOffer, TOffer } from '../../types/offers-types';
 import { cities } from '../../consts/cities.ts';
 import { sortTypes } from '../../consts/sort.ts';
 
@@ -21,7 +21,7 @@ function MainPage(): JSX.Element {
 
   const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);
 
-  const [selectedOffer, setSelectedOffer] = useState<TOffer | null>(null);
+  const [selectedOffer, setSelectedOffer] = useState<TOffer | TFullOffer | null>(null);
 
   const handleOfferHover = (offer?: TOffer): void => {
 

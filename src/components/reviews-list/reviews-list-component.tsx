@@ -1,19 +1,20 @@
 import ReviewComponent from '../review-component/review-component';
-import { TReview } from '../../types/reviews-types';
+import { useAppSelector } from '../../hooks';
+import { TComment } from '../../types/offers-types';
 
-type RewiewsListComponentProps = {
-  reviews: TReview[];
-}
 
-function ReviewsListComponent({ reviews }: RewiewsListComponentProps): JSX.Element {
+function ReviewsListComponent(): JSX.Element {
+
+  const comments = useAppSelector((state) => state.comments);
+
   return (
     <ul className="reviews__list">
       {
-        reviews.map((review: TReview) =>
+        comments.map((commentItem: TComment) =>
           (
             <ReviewComponent
-              key={review.id}
-              review={review}
+              key={commentItem.id}
+              commentItem={commentItem}
             />
           ))
       }

@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './app/app';
-import { reviews } from './mocks/reviews';
 import { favorites } from './mocks/favorites';
 import { createAPI } from './services/api';
 
@@ -40,7 +39,6 @@ root.render(
     <Provider store={store}>
       <ToastContainer />
       <App
-        reviews={reviews}
         favorites={favorites}
       />
     </Provider>

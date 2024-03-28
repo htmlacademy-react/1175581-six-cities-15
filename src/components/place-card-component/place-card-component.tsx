@@ -1,13 +1,19 @@
 import { Link } from 'react-router-dom';
 import { TOffer } from '../../types/offers-types';
+import { useAppDispatch } from '../../hooks';
+import { getOfferAction } from '../../store/api-actions';
 
 type PlaceCardProps = {
   offer: TOffer;
   block: string;
   handleOfferHover?: (offer?: TOffer) => void;
 }
+
+
 function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps): JSX.Element {
   const { price, title, type, id } = offer;
+
+  const dispatch = useAppDispatch();
 
   const handleMouseOn = () => {
     handleOfferHover?.(offer);
@@ -17,10 +23,21 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
     handleOfferHover?.();
   };
 
+
+  const handleOfferClick = (data : string) => {
+    dispatch(getOfferAction(data));
+  };
+
   return (
-    <Link to={`/offer/${id}`}>
+    <Link
+      to={'#'}
+      onClick={(evt) => {
+        evt.preventDefault();
+        handleOfferClick(id);
+      }}
+    >
       <article
-        className= {`${block}__card place-card`}
+        className={`${block}__card place-card`}
         onMouseEnter={handleMouseOn}
         onMouseLeave={handleMouseOff}
       >

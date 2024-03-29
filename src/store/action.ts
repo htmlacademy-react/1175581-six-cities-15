@@ -2,6 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { TCity, TComment, TFullOffer, TOffer } from '../types/offers-types';
 import type { SortType } from './reducer';
 import { AppRoute, AuthorizationStatus } from '../consts/route-consts';
+import { UserData } from '../consts/auth';
 
 
 export const changeCity = createAction<TCity>('changeCity');
@@ -23,6 +24,8 @@ export const setFullOffer = createAction<TFullOffer>('fullOffer');
 export const setNewComment = createAction<TComment>('setNewComment');
 
 export const setComments = createAction<TComment[]>('setComments');
+
+export const setUser = createAction<UserData | null>('setUser');
 
 export const redirectToRoute = createAction<AppRoute | string>('redirectToRoute');
 

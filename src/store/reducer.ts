@@ -1,9 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments } from './action';
+import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments, setUser } from './action';
 import { cities } from '../consts/cities';
 import { TOffer, TCity, TFullOffer, TComment } from '../types/offers-types';
 import { sortTypes } from '../consts/sort';
 import { AuthorizationStatus } from '../consts/route-consts';
+import { UserData } from '../consts/auth';
 
 
 export type SortType = {
@@ -20,6 +21,7 @@ type OffersState = {
   fullOffer: TFullOffer | null;
   comments: TComment[];
   newComment: TComment | null;
+  user: UserData | null;
   error: string | null;
   loadingOffersStatus: boolean;
   authorizationStatus: AuthorizationStatus;
@@ -33,6 +35,7 @@ const initialState: OffersState = {
   fullOffer: null,
   comments: [],
   newComment: null,
+  user: null,
   error: null,
   loadingOffersStatus: true,
   authorizationStatus: AuthorizationStatus.Unknown
@@ -70,6 +73,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setComments, (state, action) => {
       state.comments = action.payload;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
     });
 });
 

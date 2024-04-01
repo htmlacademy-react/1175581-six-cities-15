@@ -27,6 +27,12 @@ export const setComments = createAction<TComment[]>('setComments');
 
 export const setUser = createAction<UserData | null>('setUser');
 
+export const setFavorites = createAction<TFullOffer[]>('setFavorites');
+
+export const changeStatus = createAction<TFullOffer>('changeStatus');
+
+export const changeBookMark = createAction<TOffer | TFullOffer>('changeBookMark');
+
 export const redirectToRoute = createAction<AppRoute | string>('redirectToRoute');
 
 

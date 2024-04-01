@@ -1,9 +1,9 @@
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import AuthComponent from '../../components/auth-component/auth-component';
 import NoAuthComponent from '../../components/no-auth-component/no-auth-component';
 import { useAppSelector } from '../../hooks';
-import { AuthorizationStatus } from '../../consts/route-consts';
+import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
 
 type WrapClassTypes = {
   '/': string;
@@ -30,9 +30,9 @@ function Layout(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <Link to={AppRoute.Main} className="header__logo-link header__logo-link--active">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-              </a>
+              </Link>
             </div>
             {pathname !== '/login' && authorizationStatus !== AuthorizationStatus.NoAuth ? (
               <nav className="header__nav">
@@ -45,9 +45,9 @@ function Layout(): JSX.Element {
       <Outlet />
       {pathname === '/favorites' ? (
         <footer className="footer container">
-          <a className="footer__logo-link" href="main.html">
+          <Link to={AppRoute.Main} className="footer__logo-link">
             <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width={64} height={33} />
-          </a>
+          </Link>
         </footer>
       ) : null}
     </div>

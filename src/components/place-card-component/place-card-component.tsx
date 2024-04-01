@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { TOffer } from '../../types/offers-types';
 import { useAppDispatch } from '../../hooks';
-import { getOfferAction } from '../../store/api-actions';
+import { changeStatusAction, getOfferAction } from '../../store/api-actions';
+import BookMarkComponent from '../book-mark-component/book-mark-component';
+import { changeBookMark } from '../../store/action';
+
 
 type PlaceCardProps = {
   offer: TOffer;
@@ -11,7 +14,7 @@ type PlaceCardProps = {
 
 
 function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps): JSX.Element {
-  const { price, title, type, id } = offer;
+  const { price, title, type, id, isFavorite } = offer;
 
   const dispatch = useAppDispatch();
 
@@ -24,8 +27,14 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
   };
 
 
-  const handleOfferClick = (data : string) => {
+  const handleOfferClick = (data: string) => {
     dispatch(getOfferAction(data));
+  };
+
+
+  const handleBookMarkClick = () => {
+    dispatch(changeStatusAction({id, isFavorite}));
+    dispatch(changeBookMark(offer));
   };
 
   return (
@@ -55,12 +64,7 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
               <b className="place-card__price-value">€{price}</b>
               <span className="place-card__price-text">/&nbsp;night</span>
             </div>
-            <button className="place-card__bookmark-button button" type="button">
-              <svg className="place-card__bookmark-icon" width={18} height={19}>
-                <use xlinkHref="#icon-bookmark" />
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            <BookMarkComponent isFavorite={isFavorite} onBookMarkClick={handleBookMarkClick}/>
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">

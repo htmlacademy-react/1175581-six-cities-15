@@ -13,6 +13,7 @@ import { sortTypes } from '../../consts/sort.ts';
 
 function MainPage(): JSX.Element {
 
+
   const sortType = useAppSelector((state) => state.sortType.value);
 
   const currentCity = useAppSelector((state) => state.city);

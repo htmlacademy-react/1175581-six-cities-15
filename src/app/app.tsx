@@ -9,17 +9,13 @@ import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
-import { TOffer } from '../types/offers-types';
 import { useAppSelector } from '../hooks';
 import LoaderComponent from '../components/loader-component/loader-component';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../history-route/browser-history';
 
-type AppPageProps = {
-  favorites: TOffer[];
-}
 
-function App({ favorites }: AppPageProps): JSX.Element {
+function App(): JSX.Element {
 
   const loadingOfferStatus = useAppSelector((state) => state.loadingOffersStatus);
 
@@ -48,7 +44,7 @@ function App({ favorites }: AppPageProps): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute >
-                  <FavoritesPage favorites={favorites} />
+                  <FavoritesPage />
                 </PrivateRoute>
               }
             />

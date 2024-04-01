@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './app/app';
-import { favorites } from './mocks/favorites';
 import { createAPI } from './services/api';
 
 import { Provider } from 'react-redux';
@@ -38,9 +37,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App
-        favorites={favorites}
-      />
+      <App />
     </Provider>
   </React.StrictMode>
 );

@@ -1,17 +1,23 @@
 import FavoritesListComponent from '../../components/favorites-list-component/favorites-list-component';
+import { useAppSelector } from '../../hooks';
 
-import { TOffer } from '../../types/offers-types';
+function FavoritesPage(): JSX.Element {
 
-type FavoritePageProps = {
-  favorites: TOffer[];
-}
+  const favorites = useAppSelector((state) => state.favorites);
 
-function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
   return (
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
+          {!favorites.length ?
+            <section className="favorites favorites--empty">
+              <h1 className="visually-hidden">Favorites (empty)</h1>
+              <div className="favorites__status-wrapper">
+                <b className="favorites__status">Nothing yet saved.</b>
+                <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
+              </div>
+            </section> : ''}
           <FavoritesListComponent
             favorites={favorites}
           />

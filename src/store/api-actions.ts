@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../consts/api';
-import { loadOffers, redirectToRoute, requireAuthorizationStatus, setComments, setFullOffer, setLoadingOffersStatus, setNewComment, setUser } from './action';
+import { loadOffers, redirectToRoute, requireAuthorizationStatus, setComments, setFavorites, setFullOffer, setLoadingOffersStatus, setNewComment, setUser } from './action';
 import { TComment, TFullOffer, TGetComment, TOffer } from '../types/offers-types';
 import { AppRoute, AuthorizationStatus } from '../consts/route-consts';
 import { AuthData, UserData } from '../consts/auth';
@@ -19,6 +19,32 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
     const { data } = await api.get<TOffer[]>(APIRoute.Offers);
     dispatch(loadOffers(data));
     dispatch(setLoadingOffersStatus(false));
+  }
+);
+
+export const fetchFavoriteAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchFavorite',
+  async (_arg, { dispatch, extra: api }) => {
+
+    const { data } = await api.get<TFullOffer[]>(APIRoute.Favorite);
+    dispatch(fetchOffersAction());
+    dispatch(setFavorites(data));
+  }
+);
+
+export const changeStatusAction = createAsyncThunk<void, { id: string; isFavorite: boolean }, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'changeStatus',
+  async ({ id, isFavorite }, { dispatch, extra: api }) => {
+    await api.post<TFullOffer>(`${APIRoute.Favorite}/${id}/${+!isFavorite}`);
+    dispatch(fetchFavoriteAction());
   }
 );
 
@@ -47,8 +73,10 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'checkAuth',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      await api.get(APIRoute.Login);
+      const { data } = await api.get<UserData>(APIRoute.Login);
       dispatch(requireAuthorizationStatus(AuthorizationStatus.Auth));
+      dispatch(setUser(data));
+      dispatch(fetchFavoriteAction());
     } catch {
       dispatch(requireAuthorizationStatus(AuthorizationStatus.NoAuth));
     }
@@ -69,6 +97,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 
     dispatch(requireAuthorizationStatus(AuthorizationStatus.Auth));
     dispatch(setUser(data));
+    dispatch(fetchFavoriteAction());
     dispatch(redirectToRoute(AppRoute.Main));
 
   }

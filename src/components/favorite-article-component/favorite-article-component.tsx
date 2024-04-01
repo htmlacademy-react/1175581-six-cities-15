@@ -1,11 +1,21 @@
-import { TOffer } from '../../types/offers-types';
+import { useAppDispatch } from '../../hooks';
+import { changeStatusAction } from '../../store/api-actions';
+import { TFullOffer } from '../../types/offers-types';
+import BookMarkComponent from '../book-mark-component/book-mark-component';
 
 type FavoriteArticleProps = {
-  currentFavorite : TOffer;
+  currentFavorite: TFullOffer;
 }
 
-function FavoriteArticleComponent({currentFavorite}: FavoriteArticleProps): JSX.Element {
-  const {price} = currentFavorite;
+function FavoriteArticleComponent({ currentFavorite }: FavoriteArticleProps): JSX.Element {
+  const { id, price, isFavorite } = currentFavorite;
+
+  const dispatch = useAppDispatch();
+
+  const handleFavBookMarkClick = () => {
+    dispatch(changeStatusAction({id, isFavorite}));
+  };
+
   return (
     <article className="favorites__card place-card">
       <div className="place-card__mark">
@@ -22,12 +32,7 @@ function FavoriteArticleComponent({currentFavorite}: FavoriteArticleProps): JSX.
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <BookMarkComponent isFavorite={isFavorite} onBookMarkClick={handleFavBookMarkClick}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

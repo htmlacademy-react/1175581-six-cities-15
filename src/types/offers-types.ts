@@ -44,6 +44,19 @@ export type TFullOffer = {
   maxAdults: number;
 }
 
+export type TNearOffer = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  city: TCity;
+  location: TLocation;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
+}
+
 export type TComment = {
   id: string;
   date: string;

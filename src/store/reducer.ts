@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments, setUser, setFavorites, changeBookMark } from './action';
+import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments, setUser, setFavorites, changeBookMark, setNearOffers } from './action';
 import { cities } from '../consts/cities';
-import { TOffer, TCity, TFullOffer, TComment } from '../types/offers-types';
+import { TOffer, TCity, TFullOffer, TComment, TNearOffer } from '../types/offers-types';
 import { sortTypes } from '../consts/sort';
 import { AuthorizationStatus } from '../consts/route-consts';
 import { UserData } from '../consts/auth';
@@ -19,6 +19,7 @@ type OffersState = {
   city: TCity;
   offers: TOffer[];
   favorites: TFullOffer[];
+  nearOffers: TNearOffer[];
   fullOffer: TFullOffer | null;
   comments: TComment[];
   newComment: TComment | null;
@@ -34,6 +35,7 @@ const initialState: OffersState = {
   city: cities[0],
   offers: [],
   favorites: [],
+  nearOffers: [],
   fullOffer: null,
   comments: [],
   newComment: null,
@@ -75,6 +77,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setComments, (state, action) => {
       state.comments = action.payload;
+    })
+    .addCase(setNearOffers, (state, action) => {
+      state.nearOffers = action.payload;
     })
     .addCase(setFavorites, (state, action) => {
       state.favorites = action.payload;

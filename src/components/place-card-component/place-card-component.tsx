@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { TOffer } from '../../types/offers-types';
 import { useAppDispatch } from '../../hooks';
-import { changeStatusAction, getOfferAction } from '../../store/api-actions';
+import { changeStatusAction, fetchCommentsAction, fetchNearOffersAction, getOfferAction } from '../../store/api-actions';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
 import { changeBookMark } from '../../store/action';
 
@@ -29,11 +29,13 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
 
   const handleOfferClick = (data: string) => {
     dispatch(getOfferAction(data));
+    dispatch(fetchNearOffersAction(id));
+    dispatch(fetchCommentsAction());
   };
 
 
   const handleBookMarkClick = () => {
-    dispatch(changeStatusAction({id, isFavorite}));
+    dispatch(changeStatusAction({ id, isFavorite }));
     dispatch(changeBookMark(offer));
   };
 
@@ -64,7 +66,13 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
               <b className="place-card__price-value">€{price}</b>
               <span className="place-card__price-text">/&nbsp;night</span>
             </div>
-            <BookMarkComponent isFavorite={isFavorite} onBookMarkClick={handleBookMarkClick}/>
+            <BookMarkComponent
+              isFavorite={isFavorite}
+              onBookMarkClick={handleBookMarkClick}
+              className={'place-card'}
+              width={18}
+              height={19}
+            />
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">

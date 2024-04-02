@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TCity, TComment, TFullOffer, TOffer } from '../types/offers-types';
+import { TCity, TComment, TFullOffer, TNearOffer, TOffer } from '../types/offers-types';
 import type { SortType } from './reducer';
 import { AppRoute, AuthorizationStatus } from '../consts/route-consts';
 import { UserData } from '../consts/auth';
@@ -28,6 +28,8 @@ export const setComments = createAction<TComment[]>('setComments');
 export const setUser = createAction<UserData | null>('setUser');
 
 export const setFavorites = createAction<TFullOffer[]>('setFavorites');
+
+export const setNearOffers = createAction<TNearOffer[]>('setNearOffers');
 
 export const changeStatus = createAction<TFullOffer>('changeStatus');
 

@@ -2,24 +2,34 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsComponent from '../../components/reviews/reviews-component';
 import MapComponent from '../../components/map-component/map-component';
 import PlaceCardComponent from '../../components/place-card-component/place-card-component';
-import { TOffer } from '../../types/offers-types';
-import { store } from '../..';
-import { fetchCommentsAction } from '../../store/api-actions';
-import { useAppSelector } from '../../hooks';
+import { TNearOffer } from '../../types/offers-types';
+import { changeStatusAction} from '../../store/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import BookMarkComponent from '../../components/book-mark-component/book-mark-component';
+import { changeBookMark } from '../../store/action';
 
 function OfferPage(): JSX.Element {
 
-  const offers = useAppSelector((state) => state.offers);
+  const nearOffers = useAppSelector((state) => state.nearOffers);
+  const nearOffersToShow = [...nearOffers].slice(0, 3);
+
   const fullOffer = useAppSelector((state) => state.fullOffer);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  store.dispatch(fetchCommentsAction());
+  const dispatch = useAppDispatch();
 
   if (!fullOffer) {
     return (<NotFoundPage />);
   }
 
-  const { price, title } = fullOffer;
+  const { price, title, isFavorite, id } = fullOffer;
+
+
+  const handleBookMarkClick = () => {
+    dispatch(changeStatusAction({ id, isFavorite }));
+    dispatch(changeBookMark(fullOffer));
+  };
+
 
   return (
     <main className="page__main page__main--offer">
@@ -55,12 +65,13 @@ function OfferPage(): JSX.Element {
               <h1 className="offer__name">
                 {title}
               </h1>
-              <button className="offer__bookmark-button button" type="button">
-                <svg className="offer__bookmark-icon" width={31} height={33}>
-                  <use xlinkHref="#icon-bookmark" />
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <BookMarkComponent
+                isFavorite={isFavorite}
+                className={'offer'}
+                onBookMarkClick={handleBookMarkClick}
+                width={31}
+                height={33}
+              />
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
@@ -149,14 +160,14 @@ function OfferPage(): JSX.Element {
             </section>
           </div>
         </div>
-        <MapComponent offers={offers} city={fullOffer.city} className={'offer__map map'} selectedOffer={fullOffer} />
+        <MapComponent offers={nearOffersToShow} city={fullOffer.city} className={'offer__map map'} currentOffer={fullOffer} />
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {
-              offers.map((offer: TOffer) =>
+              nearOffersToShow.map((offer: TNearOffer) =>
                 (
                   <PlaceCardComponent
                     key={offer.id}

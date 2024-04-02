@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../consts/api';
-import { loadOffers, redirectToRoute, requireAuthorizationStatus, setComments, setFavorites, setFullOffer, setLoadingOffersStatus, setNewComment, setUser } from './action';
-import { TComment, TFullOffer, TGetComment, TOffer } from '../types/offers-types';
+import { loadOffers, redirectToRoute, requireAuthorizationStatus, setComments, setFavorites, setFullOffer, setLoadingOffersStatus, setNearOffers, setNewComment, setUser } from './action';
+import { TComment, TFullOffer, TGetComment, TNearOffer, TOffer } from '../types/offers-types';
 import { AppRoute, AuthorizationStatus } from '../consts/route-consts';
 import { AuthData, UserData } from '../consts/auth';
 import { dropToken, saveToken } from '../services/token';
@@ -33,6 +33,19 @@ export const fetchFavoriteAction = createAsyncThunk<void, undefined, {
     const { data } = await api.get<TFullOffer[]>(APIRoute.Favorite);
     dispatch(fetchOffersAction());
     dispatch(setFavorites(data));
+  }
+);
+
+export const fetchNearOffersAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchNearOffers',
+  async (id, { dispatch, extra: api }) => {
+
+    const { data } = await api.get<TNearOffer[]>(`${APIRoute.Offers}/${id}/nearby`);
+    dispatch(setNearOffers(data));
   }
 );
 

@@ -1,13 +1,16 @@
 type BookMarkComponentProps = {
   isFavorite: boolean;
   onBookMarkClick: () => void;
+  className: string;
+  width: number;
+  height: number;
 }
 
-function BookMarkComponent({ isFavorite, onBookMarkClick }: BookMarkComponentProps): JSX.Element {
+function BookMarkComponent({ isFavorite, onBookMarkClick, className, width, height }: BookMarkComponentProps): JSX.Element {
 
   return (
     <button
-      className={isFavorite ? 'place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
+      className={isFavorite ? `${className}__bookmark-button--active button` : `${className}__bookmark-button button`}
       type="button"
       onClick={(evt) => {
         evt.preventDefault();
@@ -15,12 +18,13 @@ function BookMarkComponent({ isFavorite, onBookMarkClick }: BookMarkComponentPro
         onBookMarkClick();
       }}
     >
-      <svg className="place-card__bookmark-icon" width={18} height={19}>
+      <svg className={`${className}__bookmark-icon`} width={width} height={height}>
         <use xlinkHref="#icon-bookmark" />
       </svg>
       <span className="visually-hidden">To bookmarks</span>
-    </button>
+    </button >
   );
 }
 
 export default BookMarkComponent;
+

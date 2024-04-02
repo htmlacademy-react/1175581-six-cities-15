@@ -32,7 +32,7 @@ function FavoriteArticleComponent({ currentFavorite }: FavoriteArticleProps): JS
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookMarkComponent isFavorite={isFavorite} onBookMarkClick={handleFavBookMarkClick}/>
+          <BookMarkComponent isFavorite={isFavorite} onBookMarkClick={handleFavBookMarkClick} className={'place-card'} width={18} height={19}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

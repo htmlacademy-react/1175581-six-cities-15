@@ -9,10 +9,11 @@ type MapComponentProps = {
   className?: string;
   offers: TOffer[];
   city: TCity;
-  selectedOffer?: TFullOffer | TOffer| null;
+  selectedOffer?: TFullOffer | TOffer | null;
+  currentOffer?: TFullOffer;
 }
 
-function MapComponent({ offers, city, selectedOffer, className }: MapComponentProps): JSX.Element {
+function MapComponent({ offers, city, selectedOffer, currentOffer, className }: MapComponentProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
@@ -49,6 +50,17 @@ function MapComponent({ offers, city, selectedOffer, className }: MapComponentPr
           })
           .addTo(map);
       });
+
+      if (currentOffer) {
+        leaflet
+          .marker({
+            lat: currentOffer.location.latitude,
+            lng: currentOffer.location.longitude,
+          }, {
+            icon: currentCustomIcon,
+          })
+          .addTo(map);
+      }
     }
   }, [city.location.latitude, city.location.longitude, city.location.zoom, currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
 

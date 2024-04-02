@@ -5,7 +5,18 @@ type ReviewComponentProps = {
 }
 
 function ReviewComponent({ commentItem }: ReviewComponentProps): JSX.Element {
-  const { date, user, comment } = commentItem;
+
+  const ratingStars = [
+    { value: 1, width: '20%' },
+    { value: 2, width: '40%' },
+    { value: 3, width: '60%' },
+    { value: 4, width: '80%' },
+    { value: 5, width: '100%' },
+  ];
+
+  const { date, user, comment, rating } = commentItem;
+
+  const ratingStar = ratingStars.find((item) => item.value === rating);
 
   return (
     <li className="reviews__item">
@@ -20,7 +31,7 @@ function ReviewComponent({ commentItem }: ReviewComponentProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{ width: `${ratingStar?.width}` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

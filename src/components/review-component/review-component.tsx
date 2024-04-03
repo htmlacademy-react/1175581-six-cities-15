@@ -31,7 +31,7 @@ function ReviewComponent({ commentItem }: ReviewComponentProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${ratingStar?.width}` }} />
+            <span style={{ width: ratingStar?.width }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

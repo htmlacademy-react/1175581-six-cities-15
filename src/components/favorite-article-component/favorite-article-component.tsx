@@ -1,14 +1,14 @@
 import { useAppDispatch } from '../../hooks';
 import { changeStatusAction } from '../../store/api-actions';
-import { TFullOffer } from '../../types/offers-types';
+import { TOffer } from '../../types/offers-types';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
 
 type FavoriteArticleProps = {
-  currentFavorite: TFullOffer;
+  currentFavorite: TOffer;
 }
 
 function FavoriteArticleComponent({ currentFavorite }: FavoriteArticleProps): JSX.Element {
-  const { id, price, isFavorite } = currentFavorite;
+  const { id, title, type, price, previewImage, isFavorite } = currentFavorite;
 
   const dispatch = useAppDispatch();
 
@@ -23,7 +23,7 @@ function FavoriteArticleComponent({ currentFavorite }: FavoriteArticleProps): JS
       </div>
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src="img/apartment-small-03.jpg" width={150} height={110} alt="Place image" />
+          <img className="place-card__image" src={`${previewImage}`} width={150} height={110} alt="Place image" />
         </a>
       </div>
       <div className="favorites__card-info place-card__info">
@@ -41,9 +41,9 @@ function FavoriteArticleComponent({ currentFavorite }: FavoriteArticleProps): JS
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Nice, cozy, warm big bed apartment</a>
+          <a href="#">{title}</a>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );

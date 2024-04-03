@@ -18,7 +18,7 @@ type OffersState = {
   sortType: SortType;
   city: TCity;
   offers: TOffer[];
-  favorites: TFullOffer[];
+  favorites: TOffer[];
   nearOffers: TNearOffer[];
   fullOffer: TFullOffer | null;
   comments: TComment[];

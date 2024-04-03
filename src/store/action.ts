@@ -27,7 +27,7 @@ export const setComments = createAction<TComment[]>('setComments');
 
 export const setUser = createAction<UserData | null>('setUser');
 
-export const setFavorites = createAction<TFullOffer[]>('setFavorites');
+export const setFavorites = createAction<TOffer[]>('setFavorites');
 
 export const setNearOffers = createAction<TNearOffer[]>('setNearOffers');
 

@@ -1,10 +1,10 @@
 import FavoritesLocationItemComponent from '../favorites-location-item/favorites-location-component';
 
-import { TFullOffer} from '../../types/offers-types';
+import { TOffer} from '../../types/offers-types';
 import { cities } from '../../consts/cities';
 
 type FavoritesListProps = {
-  favorites: TFullOffer[];
+  favorites: TOffer[];
 }
 
 function FavoritesListComponent({ favorites }: FavoritesListProps): JSX.Element {

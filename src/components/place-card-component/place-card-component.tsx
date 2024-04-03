@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TOffer } from '../../types/offers-types';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeStatusAction, fetchCommentsAction, fetchNearOffersAction, getOfferAction } from '../../store/api-actions';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
 import { changeBookMark } from '../../store/action';
+import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
 
 
 type PlaceCardProps = {
@@ -17,6 +18,8 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
   const { price, title, type, id, isFavorite } = offer;
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const userStatus = useAppSelector((state) => state.authorizationStatus);
 
   const handleMouseOn = () => {
     handleOfferHover?.(offer);
@@ -35,8 +38,12 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
 
 
   const handleBookMarkClick = () => {
-    dispatch(changeStatusAction({ id, isFavorite }));
-    dispatch(changeBookMark(offer));
+    if (userStatus === AuthorizationStatus.Auth) {
+      dispatch(changeStatusAction({ id, isFavorite }));
+      dispatch(changeBookMark(offer));
+    } else {
+      navigate(AppRoute.Login);
+    }
   };
 
   return (

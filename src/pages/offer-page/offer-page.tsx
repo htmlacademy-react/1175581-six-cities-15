@@ -6,7 +6,9 @@ import { TNearOffer } from '../../types/offers-types';
 import { changeStatusAction} from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../../components/book-mark-component/book-mark-component';
-import { changeBookMark } from '../../store/action';
+import { changeBookMarkFullOffer } from '../../store/action';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
 
 function OfferPage(): JSX.Element {
 
@@ -18,6 +20,8 @@ function OfferPage(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+
   if (!fullOffer) {
     return (<NotFoundPage />);
   }
@@ -26,8 +30,12 @@ function OfferPage(): JSX.Element {
 
 
   const handleBookMarkClick = () => {
-    dispatch(changeStatusAction({ id, isFavorite }));
-    dispatch(changeBookMark(fullOffer));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(changeBookMarkFullOffer(fullOffer));
+      dispatch(changeStatusAction({ id, isFavorite }));
+    } else {
+      navigate(AppRoute.Login);
+    }
   };
 
 

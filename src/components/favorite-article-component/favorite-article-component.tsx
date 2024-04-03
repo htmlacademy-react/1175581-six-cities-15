@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeBookMark } from '../../store/action';
-import { changeStatusAction } from '../../store/api-actions';
+import { changeBookMarkNearOffers, changeBookMarkOffers } from '../../store/action';
+import { changeStatusAction, fetchCommentsAction, fetchNearOffersAction, getOfferAction } from '../../store/api-actions';
 import { TOffer } from '../../types/offers-types';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
 
@@ -14,40 +15,55 @@ function FavoriteArticleComponent({ currentFavorite }: FavoriteArticleProps): JS
   const dispatch = useAppDispatch();
 
   const handleFavBookMarkClick = () => {
-    dispatch(changeBookMark(currentFavorite));
-    dispatch(changeStatusAction({id, isFavorite}));
+    dispatch(changeStatusAction({ id, isFavorite }));
+    dispatch(changeBookMarkOffers(currentFavorite));
+    dispatch(changeBookMarkNearOffers(currentFavorite));
+  };
+
+  const handleOfferClick = (data: string) => {
+    dispatch(getOfferAction(data));
+    dispatch(fetchNearOffersAction(id));
+    dispatch(fetchCommentsAction());
   };
 
   return (
-    <article className="favorites__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
-      <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={`${previewImage}`} width={150} height={110} alt="Place image" />
-        </a>
-      </div>
-      <div className="favorites__card-info place-card__info">
-        <div className="place-card__price-wrapper">
-          <div className="place-card__price">
-            <b className="place-card__price-value">€{price}</b>
-            <span className="place-card__price-text">/&nbsp;night</span>
-          </div>
-          <BookMarkComponent isFavorite={isFavorite} onBookMarkClick={handleFavBookMarkClick} className={'place-card'} width={18} height={19}/>
+    <Link
+      to={'#'}
+      onClick={(evt) => {
+        evt.preventDefault();
+        handleOfferClick(id);
+      }}
+    >
+      <article className="favorites__card place-card">
+        <div className="place-card__mark">
+          <span>Premium</span>
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: '100%' }} />
-            <span className="visually-hidden">Rating</span>
-          </div>
+        <div className="favorites__image-wrapper place-card__image-wrapper">
+          <a href="#">
+            <img className="place-card__image" src={`${previewImage}`} width={150} height={110} alt="Place image" />
+          </a>
         </div>
-        <h2 className="place-card__name">
-          <a href="#">{title}</a>
-        </h2>
-        <p className="place-card__type">{type}</p>
-      </div>
-    </article>
+        <div className="favorites__card-info place-card__info">
+          <div className="place-card__price-wrapper">
+            <div className="place-card__price">
+              <b className="place-card__price-value">€{price}</b>
+              <span className="place-card__price-text">/&nbsp;night</span>
+            </div>
+            <BookMarkComponent isFavorite={isFavorite} onBookMarkClick={handleFavBookMarkClick} className={'place-card'} width={18} height={19} />
+          </div>
+          <div className="place-card__rating rating">
+            <div className="place-card__stars rating__stars">
+              <span style={{ width: '100%' }} />
+              <span className="visually-hidden">Rating</span>
+            </div>
+          </div>
+          <h2 className="place-card__name">
+            <div>{title}</div>
+          </h2>
+          <p className="place-card__type">{type}</p>
+        </div>
+      </article>
+    </Link>
   );
 }
 

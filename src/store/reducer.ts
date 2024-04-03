@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments, setUser, setFavorites, changeBookMark, setNearOffers, addFavorite, removeFavorite } from './action';
+import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments, setUser, setFavorites, changeBookMark, setNearOffers, addFavorite, removeFavorite, changeBookMarkOffers, changeBookMarkNearOffers, changeBookMarkFullOffer } from './action';
 import { cities } from '../consts/cities';
 import { TOffer, TCity, TFullOffer, TComment, TNearOffer } from '../types/offers-types';
 import { sortTypes } from '../consts/sort';
@@ -90,7 +90,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(removeFavorite, (state, action) => {
       state.favorites = state.favorites.filter((favorite) => favorite.id !== action.payload.id);
     })
-    .addCase(changeBookMark, (state, action) => {
+    .addCase(changeBookMarkOffers, (state, action) => {
       const curOffer = action.payload;
       state.offers.map((offer) => {
         if (offer.id === curOffer.id) {
@@ -98,6 +98,22 @@ const reducer = createReducer(initialState, (builder) => {
           offer.isFavorite = !flag;
         }
       });
+    })
+    .addCase(changeBookMarkNearOffers, (state, action) => {
+      const curOffer = action.payload;
+      state.nearOffers.map((offer) => {
+        if (offer.id === curOffer.id) {
+          const flag = offer.isFavorite;
+          offer.isFavorite = !flag;
+        }
+      });
+    })
+    .addCase(changeBookMarkFullOffer, (state, action) => {
+      const curOffer = action.payload;
+      if(state.fullOffer?.id === curOffer.id) {
+        const flag = state.fullOffer.isFavorite;
+        state.fullOffer.isFavorite = !flag;
+      }
     })
     .addCase(setUser, (state, action) => {
       state.user = action.payload;

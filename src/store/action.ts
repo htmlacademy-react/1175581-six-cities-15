@@ -37,7 +37,11 @@ export const setNearOffers = createAction<TNearOffer[]>('setNearOffers');
 
 export const changeStatus = createAction<TFullOffer>('changeStatus');
 
-export const changeBookMark = createAction<TOffer | TFullOffer>('changeBookMark');
+export const changeBookMarkOffers = createAction<TOffer | TFullOffer>('changeBookMarkOffers');
+
+export const changeBookMarkNearOffers = createAction<TOffer | TFullOffer>('changeBookMarkNearOffers ');
+
+export const changeBookMarkFullOffer = createAction<TOffer | TFullOffer>('changeBookMarkFullOffer');
 
 export const redirectToRoute = createAction<AppRoute | string>('redirectToRoute');
 

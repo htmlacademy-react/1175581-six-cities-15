@@ -3,8 +3,8 @@ import { TOffer } from '../../types/offers-types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeStatusAction, fetchCommentsAction, fetchNearOffersAction, getOfferAction } from '../../store/api-actions';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
-import { changeBookMark } from '../../store/action';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
+import { changeBookMarkNearOffers, changeBookMarkOffers } from '../../store/action';
 
 
 type PlaceCardProps = {
@@ -39,7 +39,10 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
 
   const handleBookMarkClick = () => {
     if (userStatus === AuthorizationStatus.Auth) {
-      dispatch(changeBookMark(offer));
+      if (block === 'near-places') {
+        dispatch(changeBookMarkNearOffers(offer));
+      }
+      dispatch(changeBookMarkOffers(offer));
       dispatch(changeStatusAction({ id, isFavorite }));
     } else {
       navigate(AppRoute.Login);

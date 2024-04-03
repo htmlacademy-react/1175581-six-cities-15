@@ -13,6 +13,7 @@ import { useAppSelector } from '../hooks';
 import LoaderComponent from '../components/loader-component/loader-component';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../history-route/browser-history';
+import LoginRoute from '../components/login-route/login-route';
 
 
 function App(): JSX.Element {
@@ -37,9 +38,12 @@ function App(): JSX.Element {
             />
             <Route
               path={AppRoute.Login}
-              element={<LoginPage />}
+              element={
+                <LoginRoute>
+                  <LoginPage/>
+                </LoginRoute>
+              }
             />
-
             <Route
               path={AppRoute.Favorites}
               element={

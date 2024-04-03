@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments, setUser, setFavorites, changeBookMark, setNearOffers } from './action';
+import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments, setUser, setFavorites, changeBookMark, setNearOffers, addFavorite, removeFavorite } from './action';
 import { cities } from '../consts/cities';
 import { TOffer, TCity, TFullOffer, TComment, TNearOffer } from '../types/offers-types';
 import { sortTypes } from '../consts/sort';
@@ -83,6 +83,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setFavorites, (state, action) => {
       state.favorites = action.payload;
+    })
+    .addCase(addFavorite, (state, action) => {
+      state.favorites.push(action.payload);
+    })
+    .addCase(removeFavorite, (state, action) => {
+      state.favorites = state.favorites.filter((favorite) => favorite.id !== action.payload.id);
     })
     .addCase(changeBookMark, (state, action) => {
       const curOffer = action.payload;

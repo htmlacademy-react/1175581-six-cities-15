@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../consts/api';
-import { loadOffers, redirectToRoute, requireAuthorizationStatus, setComments, setFavorites, setFullOffer, setLoadingOffersStatus, setNearOffers, setNewComment, setUser } from './action';
+import { addFavorite, loadOffers, redirectToRoute, removeFavorite, requireAuthorizationStatus, setComments, setFavorites, setFullOffer, setLoadingOffersStatus, setNearOffers, setNewComment, setUser } from './action';
 import { TComment, TFullOffer, TGetComment, TNearOffer, TOffer } from '../types/offers-types';
 import { AppRoute, AuthorizationStatus } from '../consts/route-consts';
 import { AuthData, UserData } from '../consts/auth';
@@ -55,9 +55,15 @@ export const changeStatusAction = createAsyncThunk<void, { id: string; isFavorit
   extra: AxiosInstance;
 }>(
   'changeStatus',
-  async ({ id, isFavorite }, { dispatch, extra: api }) => {
-    await api.post<TFullOffer>(`${APIRoute.Favorite}/${id}/${+!isFavorite}`);
-    dispatch(fetchFavoriteAction());
+  async ({ id, isFavorite }, { dispatch, getState, extra: api }) => {
+    const state = getState();
+    const {data} = await api.post<TFullOffer>(`${APIRoute.Favorite}/${id}/${+!isFavorite}`);
+    const favoriteOffer = state.offers.find((offer) => offer.id === data.id);
+    if(data.isFavorite && favoriteOffer) {
+      dispatch(addFavorite(favoriteOffer));
+    } else if (favoriteOffer) {
+      dispatch(removeFavorite(favoriteOffer));
+    }
   }
 );
 

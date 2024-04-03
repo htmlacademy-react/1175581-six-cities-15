@@ -1,4 +1,5 @@
 import { useAppDispatch } from '../../hooks';
+import { changeBookMark } from '../../store/action';
 import { changeStatusAction } from '../../store/api-actions';
 import { TOffer } from '../../types/offers-types';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
@@ -13,6 +14,7 @@ function FavoriteArticleComponent({ currentFavorite }: FavoriteArticleProps): JS
   const dispatch = useAppDispatch();
 
   const handleFavBookMarkClick = () => {
+    dispatch(changeBookMark(currentFavorite));
     dispatch(changeStatusAction({id, isFavorite}));
   };
 

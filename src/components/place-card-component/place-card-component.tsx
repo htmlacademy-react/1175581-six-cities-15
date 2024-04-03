@@ -39,8 +39,8 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
 
   const handleBookMarkClick = () => {
     if (userStatus === AuthorizationStatus.Auth) {
-      dispatch(changeStatusAction({ id, isFavorite }));
       dispatch(changeBookMark(offer));
+      dispatch(changeStatusAction({ id, isFavorite }));
     } else {
       navigate(AppRoute.Login);
     }

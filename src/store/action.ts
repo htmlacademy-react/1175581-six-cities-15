@@ -29,6 +29,10 @@ export const setUser = createAction<UserData | null>('setUser');
 
 export const setFavorites = createAction<TOffer[]>('setFavorites');
 
+export const addFavorite = createAction<TOffer>('addFavorite');
+
+export const removeFavorite = createAction<TOffer>('removeFavorite');
+
 export const setNearOffers = createAction<TNearOffer[]>('setNearOffers');
 
 export const changeStatus = createAction<TFullOffer>('changeStatus');

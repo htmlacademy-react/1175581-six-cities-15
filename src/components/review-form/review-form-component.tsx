@@ -30,6 +30,8 @@ function ReviewFormComponent() {
       comment: review,
       rating: +rating
     }));
+
+    setReview({ rating: 0, review: '' });
   };
 
   return (
@@ -45,7 +47,9 @@ function ReviewFormComponent() {
           <Fragment key={value}>
             <input
               className="form__rating-input visually-hidden"
-              name="rating" defaultValue={value}
+              name="rating"
+              defaultValue={value}
+              checked={value === +reviewState.rating}
               id={`${value}-stars`}
               type="radio"
               onChange={handleChange}
@@ -62,7 +66,7 @@ function ReviewFormComponent() {
       <textarea
         className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
+        value={reviewState.review}
         onChange={handleChange}
       />
       <div className="reviews__button-wrapper">

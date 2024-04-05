@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments, setUser, setFavorites, changeBookMark, setNearOffers, addFavorite, removeFavorite, changeBookMarkOffers, changeBookMarkNearOffers, changeBookMarkFullOffer } from './action';
+import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments, setUser, setFavorites, setNearOffers, addFavorite, removeFavorite, changeBookMarkOffers, changeBookMarkNearOffers, changeBookMarkFullOffer } from './action';
 import { cities } from '../consts/cities';
 import { TOffer, TCity, TFullOffer, TComment, TNearOffer } from '../types/offers-types';
 import { sortTypes } from '../consts/sort';

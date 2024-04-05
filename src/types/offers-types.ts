@@ -73,3 +73,9 @@ export type TGetComment = {
   comment: string;
   rating: number;
 }
+
+export type THost = {
+  avatarUrl: string;
+  isPro: boolean;
+  name: string;
+}

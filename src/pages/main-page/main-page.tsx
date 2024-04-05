@@ -9,6 +9,7 @@ import { useAppSelector } from '../../hooks/index.ts';
 import { TFullOffer, TOffer } from '../../types/offers-types';
 import { cities } from '../../consts/cities.ts';
 import { sortTypes } from '../../consts/sort.ts';
+import NoPlaceCardsComponent from '../../components/no-place-cards/no-place-cards-component.tsx';
 
 
 function MainPage(): JSX.Element {
@@ -59,13 +60,23 @@ function MainPage(): JSX.Element {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{filteredOffers.length} places to stay in {currentCity.name}</b>
             <SortListComponent />
-            <PlaceCardListComponent
-              offers={filteredOffers}
-              onOfferHover={handleOfferHover}
-            />
+            {currentOffers.length ?
+              <PlaceCardListComponent
+                offers={filteredOffers}
+                onOfferHover={handleOfferHover}
+              /> :
+              <NoPlaceCardsComponent />}
           </section>
           <div className="cities__right-section">
-            <MapComponent offers={filteredOffers} city={currentCity} selectedOffer={selectedOffer} />
+            {currentOffers.length ?
+              <MapComponent
+                offers={filteredOffers}
+                city={currentCity}
+                selectedOffer={selectedOffer}
+              /> :
+              <section
+                className="cities__map map"
+              />}
           </div>
         </div>
       </div>

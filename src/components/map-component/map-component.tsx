@@ -62,7 +62,7 @@ function MapComponent({ offers, city, selectedOffer, currentOffer, className }: 
           .addTo(map);
       }
     }
-  }, [city.location.latitude, city.location.longitude, city.location.zoom, currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
+  }, [city.location.latitude, city.location.longitude, city.location.zoom, currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer, currentOffer]);
 
   return (
     <section

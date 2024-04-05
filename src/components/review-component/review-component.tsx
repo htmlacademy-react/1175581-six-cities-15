@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+import { ratingStars } from '../../consts/rating';
 import { TComment } from '../../types/offers-types';
 
 type ReviewComponentProps = {
@@ -6,15 +8,9 @@ type ReviewComponentProps = {
 
 function ReviewComponent({ commentItem }: ReviewComponentProps): JSX.Element {
 
-  const ratingStars = [
-    { value: 1, width: '20%' },
-    { value: 2, width: '40%' },
-    { value: 3, width: '60%' },
-    { value: 4, width: '80%' },
-    { value: 5, width: '100%' },
-  ];
-
   const { date, user, comment, rating } = commentItem;
+
+  const formatedDate = dayjs(date).format('MMMM YYYY');
 
   const ratingStar = ratingStars.find((item) => item.value === rating);
 
@@ -38,7 +34,7 @@ function ReviewComponent({ commentItem }: ReviewComponentProps): JSX.Element {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
+        <time className="reviews__time" dateTime={date}>{formatedDate}</time>
       </div>
     </li>
   );

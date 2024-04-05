@@ -72,7 +72,7 @@ function ReviewFormComponent() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={rating === 0 || review.length < 50}
+          disabled={rating === 0 || review.length < 50 || review.length > 300}
         >
           Submit
         </button>

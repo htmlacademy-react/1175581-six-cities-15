@@ -5,6 +5,8 @@ import { changeStatusAction, fetchCommentsAction, fetchNearOffersAction, getOffe
 import BookMarkComponent from '../book-mark-component/book-mark-component';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
 import { changeBookMarkNearOffers, changeBookMarkOffers } from '../../store/action';
+import PremiumComponent from '../premium-component/premium-component';
+import { ratingStars } from '../../consts/rating';
 
 
 type PlaceCardProps = {
@@ -15,7 +17,11 @@ type PlaceCardProps = {
 
 
 function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps): JSX.Element {
-  const { price, title, type, id, isFavorite } = offer;
+  const { price, title, type, id, isFavorite, isPremium, rating } = offer;
+
+  const ratingRounded = Math.round(rating);
+
+  const ratingStar = ratingStars.find((item) => item.value === ratingRounded);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -62,9 +68,7 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
         onMouseEnter={handleMouseOn}
         onMouseLeave={handleMouseOff}
       >
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
+        {isPremium ? <PremiumComponent className='place-card'/> : ''}
         <div className="cities__image-wrapper place-card__image-wrapper">
           <div>
             <img className="place-card__image" src={offer.previewImage} width={260} height={200} alt="Place image" />
@@ -86,7 +90,7 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: '80%' }} />
+              <span style={{ width: ratingStar?.width }} />
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

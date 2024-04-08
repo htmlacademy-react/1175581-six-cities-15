@@ -8,14 +8,13 @@ import { useAppSelector } from '../../hooks/index.ts';
 
 import { TFullOffer, TOffer } from '../../types/offers-types';
 import { cities } from '../../consts/cities.ts';
-import { sortTypes } from '../../consts/sort.ts';
 import NoPlaceCardsComponent from '../../components/no-place-cards/no-place-cards-component.tsx';
 
 
 function MainPage(): JSX.Element {
 
 
-  const sortType = useAppSelector((state) => state.sortType.value);
+  const sortType = useAppSelector((state) => state.sortType);
 
   const currentCity = useAppSelector((state) => state.city);
 
@@ -31,23 +30,6 @@ function MainPage(): JSX.Element {
 
   };
 
-  let filteredOffers = JSON.parse(JSON.stringify(currentOffers)) as TOffer[];
-
-
-  switch (sortType) {
-    case sortTypes.LowToHigh.value:
-      filteredOffers.sort((a, b) => a.price - b.price);
-      break;
-    case sortTypes.HighToLow.value:
-      filteredOffers.sort((a, b) => b.price - a.price);
-      break;
-    case sortTypes.TopRatedFirst.value:
-      filteredOffers.sort((a, b) => a.rating - b.rating);
-      break;
-    default:
-      filteredOffers = currentOffers;
-  }
-
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -58,11 +40,12 @@ function MainPage(): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{filteredOffers.length} places to stay in {currentCity.name}</b>
+            <b className="places__found">{currentOffers.length} places to stay in {currentCity.name}</b>
             <SortListComponent />
             {currentOffers.length ?
               <PlaceCardListComponent
-                offers={filteredOffers}
+                offers={currentOffers}
+                sortType={sortType}
                 onOfferHover={handleOfferHover}
               /> :
               <NoPlaceCardsComponent />}
@@ -70,7 +53,7 @@ function MainPage(): JSX.Element {
           <div className="cities__right-section">
             {currentOffers.length ?
               <MapComponent
-                offers={filteredOffers}
+                offers={currentOffers}
                 city={currentCity}
                 selectedOffer={selectedOffer}
               /> :

@@ -2,20 +2,14 @@ import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, sort, DisplaySortList, loadOffers, setError, setLoadingOffersStatus, requireAuthorizationStatus, setFullOffer, setNewComment, setComments, setUser, setFavorites, setNearOffers, addFavorite, removeFavorite, changeBookMarkOffers, changeBookMarkNearOffers, changeBookMarkFullOffer } from './action';
 import { cities } from '../consts/cities';
 import { TOffer, TCity, TFullOffer, TComment, TNearOffer } from '../types/offers-types';
-import { sortTypes } from '../consts/sort';
 import { AuthorizationStatus } from '../consts/route-consts';
 import { UserData } from '../consts/auth';
-
-
-export type SortType = {
-  name: string;
-  value: string;
-};
+import type { SortingType } from '../consts/sort';
 
 
 type OffersState = {
   isSortOpened: boolean;
-  sortType: SortType;
+  sortType: SortingType;
   city: TCity;
   offers: TOffer[];
   favorites: TOffer[];
@@ -31,7 +25,7 @@ type OffersState = {
 
 const initialState: OffersState = {
   isSortOpened: false,
-  sortType: sortTypes.Default,
+  sortType: 'Default',
   city: cities[0],
   offers: [],
   favorites: [],

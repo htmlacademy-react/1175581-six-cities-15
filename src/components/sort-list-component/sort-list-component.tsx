@@ -2,12 +2,12 @@ import SortComponent from '../sort-component/sort-component';
 import { useAppSelector } from '../../hooks';
 import { useDispatch } from 'react-redux';
 import { DisplaySortList } from '../../store/action';
-import { sortTypes } from '../../consts/sort';
+import { SortingType, sortTypes } from '../../consts/sort';
 
 function SortListComponent(): JSX.Element {
 
   let isSortOpened = useAppSelector((state) => state.isSortOpened);
-  const sortName = useAppSelector((state) => state.sortType.name);
+  const sortName = useAppSelector((state) => state.sortType);
   const dispatch = useDispatch();
 
   const showSort = () => {
@@ -40,7 +40,7 @@ function SortListComponent(): JSX.Element {
         onClick={closeSort}
       >
         {
-          Object.entries(sortTypes).map(([key, sortType]) => (<SortComponent key={key} sortType={sortType} type={key}/>))
+          Object.entries(sortTypes).map(([key, sortType]) => (<SortComponent key={key} sortType={sortType as SortingType} type={key}/>))
         }
       </ul>
     </form>

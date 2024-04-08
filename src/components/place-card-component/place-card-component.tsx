@@ -56,51 +56,47 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
   };
 
   return (
-    <Link
-      to={'#'}
+    <article
+      className={`${block}__card place-card`}
+      onMouseEnter={handleMouseOn}
+      onMouseLeave={handleMouseOff}
       onClick={(evt) => {
         evt.preventDefault();
         handleOfferClick(id);
       }}
     >
-      <article
-        className={`${block}__card place-card`}
-        onMouseEnter={handleMouseOn}
-        onMouseLeave={handleMouseOff}
-      >
-        {isPremium ? <PremiumComponent className='place-card'/> : ''}
-        <div className="cities__image-wrapper place-card__image-wrapper">
-          <div>
-            <img className="place-card__image" src={offer.previewImage} width={260} height={200} alt="Place image" />
+      {isPremium ? <PremiumComponent className='place-card' /> : ''}
+      <div className="cities__image-wrapper place-card__image-wrapper">
+        <div>
+          <img className="place-card__image" src={offer.previewImage} width={260} height={200} alt="Place image" />
+        </div>
+      </div>
+      <div className="place-card__info">
+        <div className="place-card__price-wrapper">
+          <div className="place-card__price">
+            <b className="place-card__price-value">€{price}</b>
+            <span className="place-card__price-text">/&nbsp;night</span>
+          </div>
+          <BookMarkComponent
+            isFavorite={isFavorite}
+            onBookMarkClick={handleBookMarkClick}
+            className={'place-card'}
+            width={18}
+            height={19}
+          />
+        </div>
+        <div className="place-card__rating rating">
+          <div className="place-card__stars rating__stars">
+            <span style={{ width: ratingStar?.width }} />
+            <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <div className="place-card__info">
-          <div className="place-card__price-wrapper">
-            <div className="place-card__price">
-              <b className="place-card__price-value">€{price}</b>
-              <span className="place-card__price-text">/&nbsp;night</span>
-            </div>
-            <BookMarkComponent
-              isFavorite={isFavorite}
-              onBookMarkClick={handleBookMarkClick}
-              className={'place-card'}
-              width={18}
-              height={19}
-            />
-          </div>
-          <div className="place-card__rating rating">
-            <div className="place-card__stars rating__stars">
-              <span style={{ width: ratingStar?.width }} />
-              <span className="visually-hidden">Rating</span>
-            </div>
-          </div>
-          <h2 className="place-card__name">
-            {title}
-          </h2>
-          <p className="place-card__type">{type}</p>
-        </div>
-      </article >
-    </Link>
+        <h2 className="place-card__name">
+          {title}
+        </h2>
+        <p className="place-card__type">{type}</p>
+      </div>
+    </article >
   );
 }
 

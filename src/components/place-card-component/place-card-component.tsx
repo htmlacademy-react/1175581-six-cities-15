@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { TOffer } from '../../types/offers-types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeStatusAction, fetchCommentsAction, fetchNearOffersAction, getOfferAction } from '../../store/api-actions';
@@ -8,15 +8,16 @@ import { changeBookMarkNearOffers, changeBookMarkOffers } from '../../store/acti
 import PremiumComponent from '../premium-component/premium-component';
 import { ratingStars } from '../../consts/rating';
 
-
 type PlaceCardProps = {
   offer: TOffer;
   block: string;
+  imgWidth?: number;
+  imgHeight?: number;
   handleOfferHover?: (offer?: TOffer) => void;
 }
 
 
-function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps): JSX.Element {
+function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHover }: PlaceCardProps): JSX.Element {
   const { price, title, type, id, isFavorite, isPremium, rating } = offer;
 
   const ratingRounded = Math.round(rating);
@@ -66,12 +67,14 @@ function PlaceCardComponent({ offer, block, handleOfferHover }: PlaceCardProps):
       }}
     >
       {isPremium ? <PremiumComponent className='place-card' /> : ''}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <div>
-          <img className="place-card__image" src={offer.previewImage} width={260} height={200} alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width={imgWidth ? imgWidth : 260 } height={imgHeight ? imgHeight : 200 } alt="Place image" />
         </div>
       </div>
-      <div className="place-card__info">
+      <div className={block === 'favorites' ? 'favorites__card-info place-card__info' :
+        'place-card__info'}
+      >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>

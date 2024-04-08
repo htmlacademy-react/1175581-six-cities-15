@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { changeBookMarkNearOffers, changeBookMarkOffers } from '../../store/action';
 import { changeStatusAction, fetchCommentsAction, fetchNearOffersAction, getOfferAction } from '../../store/api-actions';

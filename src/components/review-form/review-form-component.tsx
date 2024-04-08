@@ -13,15 +13,17 @@ const raitings = [
 ];
 
 function ReviewFormComponent() {
+
   const [reviewState, setReview] = useState({ rating: 0, review: '' });
+
   const { rating, review } = reviewState;
+
+  const dispatch = useAppDispatch();
+
   const handleChange: TChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
     setReview({ ...reviewState, [name]: value });
   };
-
-
-  const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

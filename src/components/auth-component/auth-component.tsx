@@ -6,11 +6,10 @@ import { AppRoute } from '../../consts/route-consts';
 
 function AuthComponent(): JSX.Element {
 
-  const dispatch = useAppDispatch();
-
+  const count = useAppSelector((state) => state.favorites.length);
   const user = useAppSelector<UserData | null>((state) => state.user);
 
-  const count = useAppSelector((state) => state.favorites.length);
+  const dispatch = useAppDispatch();
 
   return (
     <ul className="header__nav-list">

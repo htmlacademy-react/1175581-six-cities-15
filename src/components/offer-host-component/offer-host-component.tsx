@@ -6,8 +6,9 @@ type OfferHostComponentProps = {
 }
 
 function OfferHostComponent({ host, description }: OfferHostComponentProps) {
+
   const {avatarUrl, isPro, name} = host;
-  // { avatarUrl, isPro } = host;
+
   return (
     <div className="offer__host">
       <h2 className="offer__host-title">Meet the host</h2>

@@ -8,9 +8,9 @@ function ReviewsListComponent(): JSX.Element {
 
   const comments = useAppSelector((state) => state.comments);
 
-  const commentsToShow = [...comments]
-    .slice(0, 10)
-    .sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
+  const commentsToShow = comments
+    .toSorted((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf())
+    .slice(0, 10);
 
   return (
     <ul className="reviews__list">

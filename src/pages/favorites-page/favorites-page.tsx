@@ -1,9 +1,18 @@
+import { useEffect } from 'react';
 import FavoritesListComponent from '../../components/favorites-list-component/favorites-list-component';
 import { useAppSelector } from '../../hooks';
+import { useDispatch } from 'react-redux';
+import { fetchFavoriteAction } from '../../store/api-actions';
 
 function FavoritesPage(): JSX.Element {
 
   const favorites = useAppSelector((state) => state.favorites);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteAction());
+  });
 
   return (
     <main className="page__main page__main--favorites">

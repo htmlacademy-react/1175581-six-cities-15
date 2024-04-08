@@ -18,16 +18,14 @@ import OfferHostComponent from '../../components/offer-host-component/offer-host
 function OfferPage(): JSX.Element {
 
   const nearOffers = useAppSelector((state) => state.nearOffers);
-  const nearOffersToShow = [...nearOffers].slice(0, 3);
-
   const fullOffer = useAppSelector((state) => state.fullOffer);
+  const comments = useAppSelector((state) => state.comments);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  const comments = useAppSelector((state) => state.comments);
-
   const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
+
+  const nearOffersToShow = [...nearOffers].slice(0, 3);
 
   if (!fullOffer) {
     return (<NotFoundPage />);

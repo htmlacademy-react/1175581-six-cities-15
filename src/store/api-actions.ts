@@ -31,7 +31,6 @@ export const fetchFavoriteAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
 
     const { data } = await api.get<TOffer[]>(APIRoute.Favorite);
-    dispatch(fetchOffersAction());
     dispatch(setFavorites(data));
   }
 );

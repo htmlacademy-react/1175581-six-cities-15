@@ -1,6 +1,5 @@
-import FavoriteArticleComponent from '../favorite-article-component/favorite-article-component';
-
 import { TOffer} from '../../types/offers-types';
+import PlaceCardComponent from '../place-card-component/place-card-component';
 
 type FavoritesLocationProps = {
   cityName: string;
@@ -20,9 +19,12 @@ function FavoritesLocationComponent({ cityName, currentFavorites }: FavoritesLoc
       <div className="favorites__places">
         {currentFavorites.map((currentFavorite) =>
           (
-            <FavoriteArticleComponent
+            <PlaceCardComponent
               key={currentFavorite.id}
-              currentFavorite={currentFavorite}
+              offer={currentFavorite}
+              block={'favorites'}
+              imgWidth={150}
+              imgHeight={110}
             />
           ))}
       </div>

@@ -3,7 +3,7 @@ import LocationsListComponent from '../../components/locations-list-component/lo
 import MapComponent from '../../components/map-component/map-component';
 import SortListComponent from '../../components/sort-list-component/sort-list-component.tsx';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useAppSelector } from '../../hooks/index.ts';
 
 import { TFullOffer, TOffer } from '../../types/offers-types';
@@ -13,22 +13,20 @@ import NoPlaceCardsComponent from '../../components/no-place-cards/no-place-card
 
 function MainPage(): JSX.Element {
 
-
+  const currentCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
   const sortType = useAppSelector((state) => state.sortType);
 
-  const currentCity = useAppSelector((state) => state.city);
-
-  const offers = useAppSelector((state) => state.offers);
 
   const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);
 
   const [selectedOffer, setSelectedOffer] = useState<TOffer | TFullOffer | null>(null);
 
-  const handleOfferHover = (offer?: TOffer): void => {
+  const handleOfferHover = useCallback((offer?: TOffer): void => {
 
     setSelectedOffer(offer || null);
 
-  };
+  }, []);
 
   return (
     <main className="page__main page__main--index">

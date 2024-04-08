@@ -8,6 +8,7 @@ function SortListComponent(): JSX.Element {
 
   let isSortOpened = useAppSelector((state) => state.isSortOpened);
   const sortName = useAppSelector((state) => state.sortType);
+
   const dispatch = useDispatch();
 
   const showSort = () => {

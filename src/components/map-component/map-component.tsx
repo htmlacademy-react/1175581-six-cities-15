@@ -3,7 +3,7 @@ import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from './../../consts/leaflet.j
 import useMap from './useMap.tsx';
 import leaflet, { LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 
 type MapComponentProps = {
   className?: string;
@@ -72,4 +72,6 @@ function MapComponent({ offers, city, selectedOffer, currentOffer, className }: 
   );
 }
 
-export default MapComponent;
+const map = memo(MapComponent);
+
+export default map;

@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useCallback, useRef } from 'react';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../consts/auth';
 import { useAppDispatch} from '../../hooks';
@@ -12,11 +12,11 @@ function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
 
-  const onSubmit = (authData: AuthData) => {
+  const onSubmit = useCallback((authData: AuthData) => {
     dispatch(loginAction(authData));
-  };
+  }, [dispatch]);
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
@@ -27,7 +27,7 @@ function LoginPage(): JSX.Element {
         }
       );
     }
-  };
+  }, [onSubmit]);
 
   return (
     <main className="page__main page__main--login">

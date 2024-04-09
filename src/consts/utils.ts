@@ -1,4 +1,6 @@
+import dayjs from 'dayjs';
 import { TOffer } from '../types/offers-types';
+import { TRatingStar } from './rating';
 import { sortTypes, type SortingType } from './sort';
 
 export const getsortedOffers = (sortType: SortingType, offers: TOffer[]) => {
@@ -14,3 +16,9 @@ export const getsortedOffers = (sortType: SortingType, offers: TOffer[]) => {
   }
 };
 
+
+export const getImagesToShow = (images: string[]) => [...images].slice(0, 6);
+
+export const getRating = (ratingRounded: number, ratingStars : TRatingStar[]) => ratingStars.find((item) => item.value === ratingRounded)?.width;
+
+export const getFormatedDate = (date: string) => dayjs(date).format('MMMM YYYY');

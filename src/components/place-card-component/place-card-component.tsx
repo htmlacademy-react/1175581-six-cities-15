@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { TOffer } from '../../types/offers-types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeStatusAction, fetchCommentsAction, fetchNearOffersAction, getOfferAction } from '../../store/api-actions';
+import { changeStatusAction} from '../../store/api-actions';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
 import { changeBookMarkNearOffers, changeBookMarkOffers } from '../../store/action';
 import PremiumComponent from '../premium-component/premium-component';
 import { ratingStars } from '../../consts/rating';
+import { memo, useCallback } from 'react';
+import { getAuthStatus } from '../../selectors/selectors';
+import { getRating } from '../../consts/utils';
 
 type PlaceCardProps = {
   offer: TOffer;
@@ -18,30 +21,28 @@ type PlaceCardProps = {
 
 
 function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHover }: PlaceCardProps): JSX.Element {
+
+  const userStatus = useAppSelector(getAuthStatus);
   const { price, title, type, id, isFavorite, isPremium, rating } = offer;
-
   const ratingRounded = Math.round(rating);
-
-  const ratingStar = ratingStars.find((item) => item.value === ratingRounded);
+  const ratingStar = getRating(ratingRounded, ratingStars);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const userStatus = useAppSelector((state) => state.authorizationStatus);
 
-  const handleMouseOn = () => {
+
+  const handleMouseOn = useCallback(() => {
     handleOfferHover?.(offer);
-  };
+  }, [handleOfferHover, offer]);
 
-  const handleMouseOff = () => {
+  const handleMouseOff = useCallback(() => {
     handleOfferHover?.();
-  };
+  }, [handleOfferHover]);
 
 
-  const handleOfferClick = (data: string) => {
-    dispatch(getOfferAction(data));
-    dispatch(fetchNearOffersAction(id));
-    dispatch(fetchCommentsAction());
-  };
+  const handleOfferClick = useCallback(() => {
+    navigate(AppRoute.Offer.replace(':id', String(id)));
+  }, [id, navigate]);
 
 
   const handleBookMarkClick = () => {
@@ -63,13 +64,18 @@ function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHove
       onMouseLeave={handleMouseOff}
       onClick={(evt) => {
         evt.preventDefault();
-        handleOfferClick(id);
+        handleOfferClick();
       }}
     >
       {isPremium ? <PremiumComponent className='place-card' /> : ''}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <div>
-          <img className="place-card__image" src={offer.previewImage} width={imgWidth ? imgWidth : 260 } height={imgHeight ? imgHeight : 200 } alt="Place image" />
+          <img
+            className="place-card__image"
+            src={offer.previewImage} width={imgWidth ? imgWidth : 260 }
+            height={imgHeight ? imgHeight : 200 }
+            alt="Place image"
+          />
         </div>
       </div>
       <div className={block === 'favorites' ? 'favorites__card-info place-card__info' :
@@ -90,7 +96,7 @@ function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHove
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: ratingStar?.width }} />
+            <span style={{ width: ratingStar }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -103,4 +109,5 @@ function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHove
   );
 }
 
-export default PlaceCardComponent;
+const placeCard = memo(PlaceCardComponent);
+export default placeCard;

@@ -1,21 +1,27 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
-import { UserData } from '../../consts/auth';
 import { AppRoute } from '../../consts/route-consts';
+import { getFavoriteOffers, getUser } from '../../selectors/selectors';
 
 function AuthComponent(): JSX.Element {
 
-  const count = useAppSelector((state) => state.favorites.length);
-  const user = useAppSelector<UserData | null>((state) => state.user);
+  const count = useAppSelector(getFavoriteOffers).length;
+  const user = useAppSelector(getUser);
 
   const dispatch = useAppDispatch();
 
   return (
     <ul className="header__nav-list">
       <li className="header__nav-item user">
-        <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-          <div style={{background: `url(${user?.avatarUrl})`}} className="header__avatar-wrapper user__avatar-wrapper">
+        <Link
+          className="header__nav-link header__nav-link--profile"
+          to={AppRoute.Favorites}
+        >
+          <div
+            style={{background: `url(${user?.avatarUrl})`}}
+            className="header__avatar-wrapper user__avatar-wrapper"
+          >
           </div>
           <span className="header__user-name user__name">{user?.email}</span>
           <span className="header__favorite-count">{count}</span>

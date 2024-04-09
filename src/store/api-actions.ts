@@ -42,9 +42,20 @@ export const fetchNearOffersAction = createAsyncThunk<void, string, {
 }>(
   'fetchNearOffers',
   async (id, { dispatch, extra: api }) => {
-
     const { data } = await api.get<TNearOffer[]>(`${APIRoute.Offers}/${id}/nearby`);
     dispatch(setNearOffers(data));
+  }
+);
+
+export const fetchOfferAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'getOffer',
+  async (id, { dispatch, extra: api }) => {
+    const { data } = await api.get<TFullOffer>(`${APIRoute.Offers}/${id}`);
+    dispatch(setFullOffer(data));
   }
 );
 
@@ -66,20 +77,15 @@ export const changeStatusAction = createAsyncThunk<void, { id: string; isFavorit
   }
 );
 
-export const fetchCommentsAction = createAsyncThunk<void, undefined, {
+export const fetchCommentsAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchComments',
-  async (_arg, { dispatch, getState, extra: api }) => {
-
-    const state = getState();
-    const id = state.fullOffer?.id;
+  async (id, { dispatch, extra: api }) => {
     const { data } = await api.get<TComment[]>(`${APIRoute.Comments}/${id}`);
-
     dispatch(setComments(data));
-
   }
 );
 
@@ -135,21 +141,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   }
 );
 
-export const getOfferAction = createAsyncThunk<void, string, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'getOffer',
-  async (id, { dispatch, extra: api }) => {
-
-    const { data } = await api.get<TFullOffer>(`${APIRoute.Offers}/${id}`);
-
-    dispatch(setFullOffer(data));
-
-    dispatch(redirectToRoute(AppRoute.Offer.replace(':id', String(id))));
-  }
-);
 
 export const sendCommentAction = createAsyncThunk<void, TGetComment, {
   dispatch: AppDispatch;

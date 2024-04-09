@@ -1,3 +1,4 @@
+import { FavoriteImageSize } from '.';
 import { TOffer} from '../../types/offers-types';
 import PlaceCardComponent from '../place-card-component/place-card-component';
 
@@ -23,8 +24,8 @@ function FavoritesLocationComponent({ cityName, currentFavorites }: FavoritesLoc
               key={currentFavorite.id}
               offer={currentFavorite}
               block={'favorites'}
-              imgWidth={150}
-              imgHeight={110}
+              imgWidth={FavoriteImageSize.width}
+              imgHeight={FavoriteImageSize.height}
             />
           ))}
       </div>

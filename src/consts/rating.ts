@@ -1,4 +1,9 @@
-export const ratingStars = [
+export type TRatingStar = {
+  value: number;
+  width: string;
+}
+
+export const ratingStars : TRatingStar[] = [
   { value: 1, width: '20%' },
   { value: 2, width: '40%' },
   { value: 3, width: '60%' },

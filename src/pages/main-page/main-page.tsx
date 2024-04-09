@@ -9,30 +9,29 @@ import { useAppSelector } from '../../hooks/index.ts';
 import { TFullOffer, TOffer } from '../../types/offers-types';
 import { cities } from '../../consts/cities.ts';
 import NoPlaceCardsComponent from '../../components/no-place-cards/no-place-cards-component.tsx';
+import { getCurrentCity, getCurrentOffers, getSortType } from '../../selectors/selectors.ts';
 
 
 function MainPage(): JSX.Element {
 
-  const currentCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const sortType = useAppSelector((state) => state.sortType);
-
-
-  const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+  const currentCity = useAppSelector(getCurrentCity);
+  const sortType = useAppSelector(getSortType);
+  const currentOffers = useAppSelector(getCurrentOffers);
 
   const [selectedOffer, setSelectedOffer] = useState<TOffer | TFullOffer | null>(null);
 
   const handleOfferHover = useCallback((offer?: TOffer): void => {
-
     setSelectedOffer(offer || null);
-
   }, []);
 
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <LocationsListComponent cities={cities} currentCity={currentCity} />
+        <LocationsListComponent
+          cities={cities}
+          currentCity={currentCity}
+        />
       </div>
       <div className="cities">
         <div className="cities__places-container container">

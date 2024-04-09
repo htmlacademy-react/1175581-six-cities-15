@@ -1,13 +1,13 @@
 import { createAction } from '@reduxjs/toolkit';
 import { TCity, TComment, TFullOffer, TNearOffer, TOffer } from '../types/offers-types';
-import type { SortType } from './reducer';
+import type { SortingType } from '../consts/sort';
 import { AppRoute, AuthorizationStatus } from '../consts/route-consts';
 import { UserData } from '../consts/auth';
 
 
 export const changeCity = createAction<TCity>('changeCity');
 
-export const sort = createAction<SortType>('sort');
+export const sort = createAction<SortingType>('sort');
 
 export const DisplaySortList = createAction<boolean>('DisplaySortList');
 

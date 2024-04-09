@@ -3,44 +3,55 @@ import ReviewsComponent from '../../components/reviews/reviews-component';
 import MapComponent from '../../components/map-component/map-component';
 import PlaceCardComponent from '../../components/place-card-component/place-card-component';
 import { TNearOffer } from '../../types/offers-types';
-import { changeStatusAction } from '../../store/api-actions';
+import { changeStatusAction, fetchCommentsAction, fetchNearOffersAction, fetchOfferAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../../components/book-mark-component/book-mark-component';
 import { changeBookMarkFullOffer } from '../../store/action';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
 import OfferPageImageComponent from '../../components/offer-page-image-component/offer-page-image-component';
 import PremiumComponent from '../../components/premium-component/premium-component';
 import { ratingStars } from '../../consts/rating';
 import OfferInsideItemComponent from '../../components/offer-inside-item-component/offer-inside-item-component';
 import OfferHostComponent from '../../components/offer-host-component/offer-host-component';
+import { getAuthStatus, getComments, getFullOffer, getNearOffersToShow } from '../../selectors/selectors';
+import { getImagesToShow, getRating } from '../../consts/utils';
+import { useEffect } from 'react';
 
 function OfferPage(): JSX.Element {
 
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const fullOffer = useAppSelector((state) => state.fullOffer);
-  const comments = useAppSelector((state) => state.comments);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const { id } = useParams();
+
+  const nearOffersToShow = useAppSelector(getNearOffersToShow);
+  const fullOffer = useAppSelector(getFullOffer);
+  const comments = useAppSelector(getComments);
+  const authorizationStatus = useAppSelector(getAuthStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const nearOffersToShow = [...nearOffers].slice(0, 3);
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferAction(id));
+      dispatch(fetchNearOffersAction(id));
+      dispatch(fetchCommentsAction(id));
+    }
+  }, [dispatch, id]);
 
   if (!fullOffer) {
     return (<NotFoundPage />);
   }
 
-  const { price, title, bedrooms, maxAdults, goods, host, description, isFavorite, isPremium, rating, id, images } = fullOffer;
+  const { price, title, bedrooms, maxAdults, goods, host, description, isFavorite, isPremium, rating, images } = fullOffer;
 
-  const imagesToShow = images.slice(0, 6);
+  const imagesToShow = getImagesToShow(images);
 
   const ratingRounded = Math.round(rating);
 
-  const ratingStar = ratingStars.find((item) => item.value === ratingRounded);
+  const ratingStar = getRating(ratingRounded, ratingStars);
 
   const handleBookMarkClick = () => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
+    if (authorizationStatus === AuthorizationStatus.Auth && id) {
       dispatch(changeBookMarkFullOffer(fullOffer));
       dispatch(changeStatusAction({ id, isFavorite }));
     } else {
@@ -48,21 +59,27 @@ function OfferPage(): JSX.Element {
     }
   };
 
-
   return (
     <main className="page__main page__main--offer">
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
             {imagesToShow.map((image) =>
-              <OfferPageImageComponent key={image} image={image} />
+              (
+                <OfferPageImageComponent
+                  key={image}
+                  image={image}
+                />
+              )
             )}
           </div>
         </div>
         <div className="offer__container container">
           <div className="offer__wrapper">
             {isPremium ?
-              <PremiumComponent className='offer' /> :
+              <PremiumComponent
+                className='offer'
+              /> :
               ''}
             <div className="offer__name-wrapper">
               <h1 className="offer__name">
@@ -78,7 +95,7 @@ function OfferPage(): JSX.Element {
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: ratingStar?.width }} />
+                <span style={{ width: ratingStar }} />
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="offer__rating-value rating__value">{rating}</span>
@@ -102,11 +119,18 @@ function OfferPage(): JSX.Element {
               <h2 className="offer__inside-title">What&apos;s inside</h2>
               <ul className="offer__inside-list">
                 {goods.map((good) =>
-                  <OfferInsideItemComponent key={good} good={good} />
+                  (
+                    <OfferInsideItemComponent
+                      key={good}
+                      good={good}
+                    />)
                 )}
               </ul>
             </div>
-            <OfferHostComponent host={host} description={description} />
+            <OfferHostComponent
+              host={host}
+              description={description}
+            />
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">Reviews · <span className="reviews__amount">{comments.length}</span></h2>
               <ReviewsComponent
@@ -115,7 +139,12 @@ function OfferPage(): JSX.Element {
             </section>
           </div>
         </div>
-        <MapComponent offers={nearOffersToShow} city={fullOffer.city} className={'offer__map map'} currentOffer={fullOffer} />
+        <MapComponent
+          offers={nearOffersToShow}
+          city={fullOffer.city}
+          className={'offer__map map'}
+          currentOffer={fullOffer}
+        />
       </section>
       <div className="container">
         <section className="near-places places">

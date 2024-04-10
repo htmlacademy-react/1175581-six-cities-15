@@ -1,6 +1,6 @@
 import FavoritesLocationItemComponent from '../favorites-location-item/favorites-location-component';
 
-import { TOffer} from '../../types/offers-types';
+import { TOffer} from '../../types/data-types';
 import { cities } from '../../consts/cities';
 
 type FavoritesListProps = {

@@ -2,7 +2,7 @@ import { useAppDispatch } from '../../hooks';
 
 import cn from 'classnames';
 
-import { TCity } from '../../types/offers-types';
+import { TCity } from '../../types/data-types';
 import { SortingType, sortTypes } from '../../consts/sort';
 import { changeCity, sort } from '../../store/process/offers-process/offers-process';
 

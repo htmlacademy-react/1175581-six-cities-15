@@ -14,7 +14,7 @@ import LoaderComponent from '../components/loader-component/loader-component';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../history-route/browser-history';
 import LoginRoute from '../components/login-route/login-route';
-import { getIsOffersDataLoading } from '../selectors/selectors';
+import { getIsOffersDataLoading } from '../store/process/offers-process/selectors';
 
 
 function App(): JSX.Element {

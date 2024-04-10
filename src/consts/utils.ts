@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { TOffer } from '../types/offers-types';
+import { TOffer } from '../types/data-types';
 import { TRatingStar } from './rating';
 import { sortTypes, type SortingType } from './sort';
 

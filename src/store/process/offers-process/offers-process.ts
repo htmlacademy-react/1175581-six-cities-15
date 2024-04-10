@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SortingType } from '../../../consts/sort';
-import { TCity, TOffer } from '../../../types/offers-types';
+import { TCity, TOffer } from '../../../types/data-types';
 import { fetchOffersAction } from '../../api-actions';
 import { cities } from '../../../consts/cities';
 

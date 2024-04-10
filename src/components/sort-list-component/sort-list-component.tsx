@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { SortingType, sortTypes } from '../../consts/sort';
 import { displaySort } from '../../store/process/offers-process/offers-process';
-import { getIsSortOpened, getSortType } from '../../selectors/selectors';
+import { getIsSortOpened, getSortType } from '../../store/process/offers-process/selectors';
 
 function SortListComponent(): JSX.Element {
 

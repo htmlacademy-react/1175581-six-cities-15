@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { FavoriteImageSize } from '.';
-import { TCity, TOffer } from '../../types/offers-types';
+import { TCity, TOffer } from '../../types/data-types';
 import PlaceCardComponent from '../place-card-component/place-card-component';
 import { changeCity } from '../../store/process/offers-process/offers-process';
 import { useNavigate } from 'react-router-dom';

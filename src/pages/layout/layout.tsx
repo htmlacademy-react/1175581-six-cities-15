@@ -3,9 +3,8 @@ import AuthComponent from '../../components/auth-component/auth-component';
 import NoAuthComponent from '../../components/no-auth-component/no-auth-component';
 import { useAppSelector } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
-
-import { getAuthStatus } from '../../selectors/selectors';
 import { WrapClassTypes, WrapClasses } from '.';
+import { getAuthStatus } from '../../store/process/user-process/selectors';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();

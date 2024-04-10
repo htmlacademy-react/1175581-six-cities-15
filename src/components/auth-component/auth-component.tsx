@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { AppRoute } from '../../consts/route-consts';
-import { getFavoriteOffers, getUser } from '../../selectors/selectors';
+import { getFavoriteOffers } from '../../store/process/favorites-process/selectors';
+import { getUser } from '../../store/process/user-process/selectors';
 
 function AuthComponent(): JSX.Element {
 

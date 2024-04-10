@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import FavoritesListComponent from '../../components/favorites-list-component/favorites-list-component';
 import { useAppSelector } from '../../hooks';
 import { fetchFavoriteAction } from '../../store/api-actions';
-import { getFavoriteOffers } from '../../selectors/selectors';
 import { store } from '../..';
 import { useDispatch } from 'react-redux';
+import { getFavoriteOffers } from '../../store/process/favorites-process/selectors';
 
 function FavoritesPage(): JSX.Element {
 

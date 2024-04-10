@@ -1,4 +1,4 @@
-import { TCity } from '../types/offers-types';
+import { TCity } from '../types/data-types';
 
 export const cities: TCity[] = [{
   name: 'Paris',

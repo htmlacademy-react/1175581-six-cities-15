@@ -1,8 +1,8 @@
 import ReviewComponent from '../review-component/review-component';
 import { useAppSelector } from '../../hooks';
-import { TComment } from '../../types/offers-types';
+import { TComment } from '../../types/data-types';
 import dayjs from 'dayjs';
-import { getComments } from '../../selectors/selectors';
+import { getComments } from '../../store/process/comments-process/selectors';
 
 
 function ReviewsListComponent(): JSX.Element {

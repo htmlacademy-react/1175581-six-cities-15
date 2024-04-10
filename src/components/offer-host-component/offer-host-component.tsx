@@ -1,4 +1,4 @@
-import { THost } from '../../types/offers-types';
+import { THost } from '../../types/data-types';
 
 type OfferHostComponentProps = {
   host: THost;

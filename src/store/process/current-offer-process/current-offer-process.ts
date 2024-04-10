@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { TFullOffer } from '../../../types/offers-types';
+import { TFullOffer } from '../../../types/data-types';
 import { fetchCurrentOfferAction } from '../../api-actions';
 
 export type TCurrentOfferState = {

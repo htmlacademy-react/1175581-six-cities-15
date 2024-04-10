@@ -1,6 +1,6 @@
 import PlaceCardComponent from '../place-card-component/place-card-component';
 import { getsortedOffers } from '../../consts/utils';
-import { TOffer } from '../../types/offers-types';
+import { TOffer } from '../../types/data-types';
 import { SortingType } from '../../consts/sort';
 
 type PlaceCardListProps = {

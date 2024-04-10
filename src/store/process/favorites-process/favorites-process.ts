@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TOffer } from '../../../types/offers-types';
+import { TOffer } from '../../../types/data-types';
 import { changeFavoriteAction, fetchFavoriteAction } from '../../api-actions';
 
 

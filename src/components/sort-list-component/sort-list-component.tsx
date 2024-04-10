@@ -1,25 +1,27 @@
 import SortComponent from '../sort-component/sort-component';
 import { useAppSelector } from '../../hooks';
 import { useDispatch } from 'react-redux';
-import { DisplaySortList } from '../../store/action';
+
 import { SortingType, sortTypes } from '../../consts/sort';
+import { displaySort } from '../../store/process/offers-process/offers-process';
+import { getIsSortOpened, getSortType } from '../../selectors/selectors';
 
 function SortListComponent(): JSX.Element {
 
-  let isSortOpened = useAppSelector((state) => state.isSortOpened);
-  const sortName = useAppSelector((state) => state.sortType);
+  let isSortOpened = useAppSelector(getIsSortOpened);
+  const sortName = useAppSelector(getSortType);
 
   const dispatch = useDispatch();
 
   const showSort = () => {
     isSortOpened = true;
-    dispatch(DisplaySortList(isSortOpened));
+    dispatch(displaySort(isSortOpened));
   };
 
 
   const closeSort = () => {
     isSortOpened = false;
-    dispatch(DisplaySortList(isSortOpened));
+    dispatch(displaySort(isSortOpened));
   };
 
 
@@ -41,7 +43,7 @@ function SortListComponent(): JSX.Element {
         onClick={closeSort}
       >
         {
-          Object.entries(sortTypes).map(([key, sortType]) => (<SortComponent key={key} sortType={sortType as SortingType} type={key}/>))
+          Object.entries(sortTypes).map(([key, sortType]) => (<SortComponent key={key} sortType={sortType as SortingType}/>))
         }
       </ul>
     </form>

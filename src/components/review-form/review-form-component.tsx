@@ -1,6 +1,7 @@
 import { FormEvent, Fragment, ReactEventHandler, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { sendCommentAction } from '../../store/api-actions';
+import { useParams } from 'react-router-dom';
 
 type TChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
@@ -13,6 +14,8 @@ const raitings = [
 ];
 
 function ReviewFormComponent() {
+
+  const { id } = useParams();
 
   const [reviewState, setReview] = useState({ rating: 0, review: '' });
 
@@ -28,10 +31,13 @@ function ReviewFormComponent() {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    dispatch(sendCommentAction({
-      comment: review,
-      rating: +rating
-    }));
+    if (id) {
+      dispatch(sendCommentAction({
+        comment: review,
+        rating: +rating,
+        id: id,
+      }));
+    }
 
     setReview({ rating: 0, review: '' });
   };

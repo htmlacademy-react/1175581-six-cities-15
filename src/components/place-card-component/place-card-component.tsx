@@ -1,15 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { TOffer } from '../../types/offers-types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeStatusAction} from '../../store/api-actions';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
-import { changeBookMarkNearOffers, changeBookMarkOffers } from '../../store/action';
 import PremiumComponent from '../premium-component/premium-component';
 import { ratingStars } from '../../consts/rating';
 import { memo, useCallback } from 'react';
 import { getAuthStatus } from '../../selectors/selectors';
 import { getRating } from '../../consts/utils';
+import { changeBookMarkNearOffers } from '../../store/process/near-process/near-process';
+import { changeBookMarkOffers } from '../../store/process/offers-process/offers-process';
+import { changeFavoriteAction } from '../../store/api-actions';
 
 type PlaceCardProps = {
   offer: TOffer;
@@ -51,7 +52,7 @@ function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHove
         dispatch(changeBookMarkNearOffers(offer));
       }
       dispatch(changeBookMarkOffers(offer));
-      dispatch(changeStatusAction({ id, isFavorite }));
+      dispatch(changeFavoriteAction({ id, isFavorite }));
     } else {
       navigate(AppRoute.Login);
     }

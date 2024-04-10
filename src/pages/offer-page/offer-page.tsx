@@ -3,10 +3,9 @@ import ReviewsComponent from '../../components/reviews/reviews-component';
 import MapComponent from '../../components/map-component/map-component';
 import PlaceCardComponent from '../../components/place-card-component/place-card-component';
 import { TNearOffer } from '../../types/offers-types';
-import { changeStatusAction, fetchCommentsAction, fetchNearOffersAction, fetchOfferAction } from '../../store/api-actions';
+import { changeFavoriteAction, fetchCommentsAction, fetchCurrentOfferAction, fetchNearOffersAction} from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../../components/book-mark-component/book-mark-component';
-import { changeBookMarkFullOffer } from '../../store/action';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
 import OfferPageImageComponent from '../../components/offer-page-image-component/offer-page-image-component';
@@ -17,6 +16,7 @@ import OfferHostComponent from '../../components/offer-host-component/offer-host
 import { getAuthStatus, getComments, getFullOffer, getNearOffersToShow } from '../../selectors/selectors';
 import { getImagesToShow, getRating } from '../../consts/utils';
 import { useEffect } from 'react';
+import { changeBookMarkFullOffer } from '../../store/process/current-offer-process/current-offer-process';
 
 function OfferPage(): JSX.Element {
 
@@ -32,7 +32,7 @@ function OfferPage(): JSX.Element {
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchOfferAction(id));
+      dispatch(fetchCurrentOfferAction(id));
       dispatch(fetchNearOffersAction(id));
       dispatch(fetchCommentsAction(id));
     }
@@ -53,7 +53,7 @@ function OfferPage(): JSX.Element {
   const handleBookMarkClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth && id) {
       dispatch(changeBookMarkFullOffer(fullOffer));
-      dispatch(changeStatusAction({ id, isFavorite }));
+      dispatch(changeFavoriteAction({ id, isFavorite }));
     } else {
       navigate(AppRoute.Login);
     }

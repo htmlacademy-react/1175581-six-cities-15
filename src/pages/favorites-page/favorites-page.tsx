@@ -4,14 +4,16 @@ import { useAppSelector } from '../../hooks';
 import { fetchFavoriteAction } from '../../store/api-actions';
 import { getFavoriteOffers } from '../../selectors/selectors';
 import { store } from '../..';
+import { useDispatch } from 'react-redux';
 
 function FavoritesPage(): JSX.Element {
 
   const favorites = useAppSelector(getFavoriteOffers);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     store.dispatch(fetchFavoriteAction());
-  });
+  }, [dispatch]);
 
   return (
     <main className="page__main page__main--favorites">

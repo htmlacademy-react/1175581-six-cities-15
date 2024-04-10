@@ -72,6 +72,6 @@ function MapComponent({ offers, city, selectedOffer, currentOffer, className }: 
   );
 }
 
-const map = memo(MapComponent);
+const Map = memo(MapComponent);
 
-export default map;
+export default Map;

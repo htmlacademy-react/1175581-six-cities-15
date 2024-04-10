@@ -9,7 +9,6 @@ type FavoritesListProps = {
 
 function FavoritesListComponent({ favorites }: FavoritesListProps): JSX.Element {
 
-
   return (
     <ul className="favorites__list">
       {cities.map((city) => {
@@ -17,7 +16,7 @@ function FavoritesListComponent({ favorites }: FavoritesListProps): JSX.Element 
         return currentfavorites.length !== 0 ?
           <FavoritesLocationItemComponent
             key={city.name}
-            cityName={city.name}
+            city={city}
             currentFavorites={currentfavorites}
           /> : '';
       })}

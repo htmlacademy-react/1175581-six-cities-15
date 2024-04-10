@@ -110,5 +110,5 @@ function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHove
   );
 }
 
-const placeCard = memo(PlaceCardComponent);
-export default placeCard;
+const PlaceCard = memo(PlaceCardComponent);
+export default PlaceCard;

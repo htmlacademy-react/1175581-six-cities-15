@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../../consts/route-consts';
 import { checkAuthAction, loginAction, logoutAction } from '../../api-actions';
-import { UserData } from '../../../consts/auth';
+import { UserData } from '../../../types/auth';
 
 export type TLoginState = {
   authorizationStatus: AuthorizationStatus;

@@ -43,7 +43,11 @@ function SortListComponent(): JSX.Element {
         onClick={closeSort}
       >
         {
-          Object.entries(sortTypes).map(([key, sortType]) => (<SortComponent key={key} sortType={sortType as SortingType}/>))
+          Object.entries(sortTypes).map(([key, sortType]) => (
+            <SortComponent
+              key={key}
+              sortType={sortType as SortingType}
+            />))
         }
       </ul>
     </form>

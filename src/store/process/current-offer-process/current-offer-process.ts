@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { TFullOffer } from '../../../types/data-types';
 import { fetchCurrentOfferAction } from '../../api-actions';
+import { TFullOffer } from '../../../types/current-offer';
 
 export type TCurrentOfferState = {
-  fullOffer: TFullOffer | null;
+  fullOffer: TFullOffer| null;
   isOfferDataLoading: boolean;
   hasErrorOfferLoading: boolean;
   hasErrorNearOffersLoading: boolean;

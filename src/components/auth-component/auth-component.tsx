@@ -20,25 +20,29 @@ function AuthComponent(): JSX.Element {
           to={AppRoute.Favorites}
         >
           <div
-            style={{background: `url(${user?.avatarUrl})`}}
             className="header__avatar-wrapper user__avatar-wrapper"
           >
+            <img
+              className='user__avatar'
+              src={user?.avatarUrl}
+              alt='User Avatar'
+            />
           </div>
           <span className="header__user-name user__name">{user?.email}</span>
           <span className="header__favorite-count">{count}</span>
         </Link>
       </li>
       <li className="header__nav-item">
-        <Link
+        <a
           className="header__nav-link"
-          to="#"
+          href="#"
           onClick={(evt) => {
             evt.preventDefault();
             dispatch(logoutAction());
           }}
         >
           <span className="header__signout">Sign out</span>
-        </Link>
+        </a>
       </li>
     </ul>
   );

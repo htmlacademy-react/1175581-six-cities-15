@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { TOffer } from '../../types/data-types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
@@ -11,6 +10,7 @@ import { changeBookMarkNearOffers } from '../../store/process/near-process/near-
 import { changeBookMarkOffers } from '../../store/process/offers-process/offers-process';
 import { changeFavoriteAction } from '../../store/api-actions';
 import { getAuthStatus } from '../../store/process/user-process/selectors';
+import { TOffer } from '../../types/offer';
 
 type PlaceCardProps = {
   offer: TOffer;

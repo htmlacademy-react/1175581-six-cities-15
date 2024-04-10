@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { TOffer } from '../../../types/data-types';
 import { fetchNearOffersAction } from '../../api-actions';
+import { TOffer } from '../../../types/offer';
 
 export type TNearOffersState = {
   nearOffers: TOffer[];

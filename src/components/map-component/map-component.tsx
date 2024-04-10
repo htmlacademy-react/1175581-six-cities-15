@@ -1,4 +1,6 @@
-import { TOffer, TCity, TFullOffer } from '../../types/data-types.ts';
+import { TFullOffer } from '../../types/current-offer.ts';
+import {TCity } from '../../types/data-types.ts';
+import { TOffer } from '../../types/offer.ts';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from './../../consts/leaflet.js';
 import useMap from './useMap.tsx';
 import leaflet, { LayerGroup } from 'leaflet';

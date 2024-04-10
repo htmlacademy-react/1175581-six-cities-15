@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
-import { TOffer } from '../types/data-types';
+
 import { TRatingStar } from './rating';
 import { sortTypes, type SortingType } from './sort';
+import { TOffer } from '../types/offer';
 
 export const getsortedOffers = (sortType: SortingType, offers: TOffer[]) => {
   switch (sortType) {

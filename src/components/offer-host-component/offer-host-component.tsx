@@ -1,7 +1,8 @@
-import { THost } from '../../types/data-types';
+import { TUser } from '../../types/user';
+
 
 type OfferHostComponentProps = {
-  host: THost;
+  host: TUser;
   description: string;
 }
 

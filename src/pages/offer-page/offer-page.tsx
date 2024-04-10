@@ -2,7 +2,6 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsComponent from '../../components/reviews/reviews-component';
 import MapComponent from '../../components/map-component/map-component';
 import PlaceCardComponent from '../../components/place-card-component/place-card-component';
-import { TNearOffer } from '../../types/data-types';
 import { changeFavoriteAction, fetchCommentsAction, fetchCurrentOfferAction, fetchNearOffersAction} from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../../components/book-mark-component/book-mark-component';
@@ -20,6 +19,7 @@ import { getNearOffersToShow } from '../../store/process/near-process/selectors'
 import { getFullOffer } from '../../store/process/current-offer-process/selectors';
 import { getComments } from '../../store/process/comments-process/selectors';
 import { getAuthStatus } from '../../store/process/user-process/selectors';
+import { TOffer } from '../../types/offer';
 
 function OfferPage(): JSX.Element {
 
@@ -154,7 +154,7 @@ function OfferPage(): JSX.Element {
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {
-              nearOffersToShow.map((offer: TNearOffer) =>
+              nearOffersToShow.map((offer: TOffer) =>
                 (
                   <PlaceCardComponent
                     key={offer.id}

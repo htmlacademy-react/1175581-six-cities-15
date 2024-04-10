@@ -2,11 +2,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../consts/api';
-import { TComment, TFullOffer, TOffer } from '../types/data-types';
 import { AppRoute } from '../consts/route-consts';
-import { AuthData, UserData } from '../consts/auth';
 import { dropToken, saveToken } from '../services/token';
 import { redirectToRoute } from './action';
+import { TOffer } from '../types/offer';
+import { TFullOffer } from '../types/current-offer';
+import { TComment } from '../types/comments';
+import { AuthData, UserData } from '../types/auth';
 
 export const fetchOffersAction = createAsyncThunk<TOffer[], undefined, {
   dispatch: AppDispatch;
@@ -80,6 +82,19 @@ export const fetchCommentsAction = createAsyncThunk<TComment[], string, {
   }
 );
 
+export const sendCommentAction = createAsyncThunk<TComment, { comment: string; rating: number; id: string }, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'sendComment',
+  async ({ comment, rating, id }, { dispatch, extra: api }) => {
+    const { data } = await api.post<TComment>(`${APIRoute.Comments}/${id}`, { comment, rating });
+    dispatch(redirectToRoute(AppRoute.Offer.replace(':id', String(id))));
+    return data;
+  }
+);
+
 export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -119,19 +134,3 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     window.location.reload();
   }
 );
-
-
-export const sendCommentAction = createAsyncThunk<TComment, { comment: string; rating: number; id: string }, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'sendComment',
-  async ({ comment, rating, id }, { dispatch, extra: api }) => {
-    const { data } = await api.post<TComment>(`${APIRoute.Comments}/${id}`, { comment, rating });
-    dispatch(redirectToRoute(AppRoute.Offer.replace(':id', String(id))));
-    return data;
-  }
-);
-
-

@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { SortingType } from '../../../consts/sort';
-import { TCity, TOffer } from '../../../types/data-types';
+import { SortingType, sortTypes } from '../../../consts/sort';
+import { TCity } from '../../../types/data-types';
 import { fetchOffersAction } from '../../api-actions';
 import { cities } from '../../../consts/cities';
+import { TOffer } from '../../../types/offer';
 
 export type TOffersState = {
   city: TCity;
@@ -15,7 +16,7 @@ export type TOffersState = {
 
 const initialState: TOffersState = {
   city: cities[0],
-  sortType: 'Default',
+  sortType: sortTypes.Default as SortingType,
   isSortOpened: false,
   offers: [],
   isOffersDataLoading: true,

@@ -1,7 +1,7 @@
 import { FormEvent, useCallback, useRef } from 'react';
 import { loginAction } from '../../store/api-actions';
-import { AuthData } from '../../consts/auth';
 import { useAppDispatch} from '../../hooks';
+import { AuthData } from '../../types/auth';
 
 
 function LoginPage(): JSX.Element {

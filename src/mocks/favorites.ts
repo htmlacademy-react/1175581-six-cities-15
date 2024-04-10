@@ -1,4 +1,4 @@
-import { TOffer } from '../types/data-types';
+import { TOffer } from '../types/offer';
 
 export const favorites: TOffer[] = [
   {

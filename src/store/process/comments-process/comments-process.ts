@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TComment } from '../../../types/data-types';
 import { fetchCommentsAction, sendCommentAction } from '../../api-actions';
+import { TComment } from '../../../types/comments';
 
 export type TCommentsState = {
   comments: TComment[];

@@ -1,7 +1,8 @@
 
 import { ratingStars } from '../../consts/rating';
-import { TComment } from '../../types/data-types';
+
 import { getFormatedDate, getRating } from '../../consts/utils';
+import { TComment } from '../../types/comments';
 
 type ReviewComponentProps = {
   commentItem: TComment;

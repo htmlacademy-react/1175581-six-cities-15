@@ -1,6 +1,6 @@
 import LocationComponent from '../location-component/location-component';
 
-import { TCity } from '../../types/offers-types';
+import { TCity } from '../../types/data-types';
 
 type LocationsListComponentProps = {
   cities: TCity[];

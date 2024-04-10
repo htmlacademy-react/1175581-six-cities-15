@@ -1,4 +1,7 @@
-import { Fragment, ReactEventHandler, useState } from 'react';
+import { FormEvent, Fragment, ReactEventHandler, useState } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { sendCommentAction } from '../../store/api-actions';
+import { useParams } from 'react-router-dom';
 
 type TChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
@@ -11,22 +14,50 @@ const raitings = [
 ];
 
 function ReviewFormComponent() {
+
+  const { id } = useParams();
+
   const [reviewState, setReview] = useState({ rating: 0, review: '' });
+
   const { rating, review } = reviewState;
+
+  const dispatch = useAppDispatch();
+
   const handleChange: TChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
     setReview({ ...reviewState, [name]: value });
   };
 
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (id) {
+      dispatch(sendCommentAction({
+        comment: review,
+        rating: +rating,
+        id: id,
+      }));
+    }
+
+    setReview({ rating: 0, review: '' });
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={handleSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {raitings.map(({ value, title }) => (
           <Fragment key={value}>
             <input
               className="form__rating-input visually-hidden"
-              name="rating" defaultValue={value}
+              name="rating"
+              defaultValue={value}
+              checked={value === +reviewState.rating}
               id={`${value}-stars`}
               type="radio"
               onChange={handleChange}
@@ -43,7 +74,7 @@ function ReviewFormComponent() {
       <textarea
         className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
+        value={reviewState.review}
         onChange={handleChange}
       />
       <div className="reviews__button-wrapper">
@@ -53,7 +84,7 @@ function ReviewFormComponent() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={rating === 0 || review.length < 50}
+          disabled={rating === 0 || review.length < 50 || review.length > 300}
         >
           Submit
         </button>

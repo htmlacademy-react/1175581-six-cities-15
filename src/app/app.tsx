@@ -9,21 +9,17 @@ import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
-import { TOffer } from '../types/offers-types';
-import { TReview } from '../types/reviews-types';
 import { useAppSelector } from '../hooks';
 import LoaderComponent from '../components/loader-component/loader-component';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../history-route/browser-history';
+import LoginRoute from '../components/login-route/login-route';
+import { getIsOffersDataLoading } from '../store/process/offers-process/selectors';
 
-type AppPageProps = {
-  reviews: TReview[];
-  favorites: TOffer[];
-}
 
-function App({ reviews, favorites }: AppPageProps): JSX.Element {
+function App(): JSX.Element {
 
-  const loadingOfferStatus = useAppSelector((state) => state.loadingOffersStatus);
+  const loadingOfferStatus = useAppSelector(getIsOffersDataLoading);
 
   if (loadingOfferStatus) {
     return <LoaderComponent />;
@@ -43,20 +39,23 @@ function App({ reviews, favorites }: AppPageProps): JSX.Element {
             />
             <Route
               path={AppRoute.Login}
-              element={<LoginPage />}
+              element={
+                <LoginRoute>
+                  <LoginPage/>
+                </LoginRoute>
+              }
             />
-
             <Route
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute >
-                  <FavoritesPage favorites={favorites} />
+                  <FavoritesPage />
                 </PrivateRoute>
               }
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferPage reviews={reviews} />}
+              element={<OfferPage />}
             />
             <Route
               path="*"

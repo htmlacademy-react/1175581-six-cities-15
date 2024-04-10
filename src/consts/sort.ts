@@ -1,18 +1,8 @@
 export const sortTypes = {
-  Default: {
-    name: 'Popular',
-    value: 'Default',
-  },
-  LowToHigh: {
-    name: 'Price: low to high',
-    value: 'LowToHigh',
-  },
-  HighToLow: {
-    name: 'Price: high to low',
-    value: 'sdfsdf',
-  },
-  TopRatedFirst: {
-    name: 'Top rated first',
-    value: 'HighToLow',
-  }
+  Default: 'Popular',
+  LowToHigh: 'Price: low to high',
+  HighToLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first'
 };
+
+export type SortingType = keyof typeof sortTypes;

@@ -1,11 +1,20 @@
-import { TReview } from '../../types/reviews-types';
+
+import { ratingStars } from '../../consts/rating';
+
+import { getFormatedDate, getRating } from '../../consts/utils';
+import { TComment } from '../../types/comments';
 
 type ReviewComponentProps = {
-  review: TReview;
+  commentItem: TComment;
 }
 
-function ReviewComponent({ review }: ReviewComponentProps): JSX.Element {
-  const { date, user, comment } = review;
+function ReviewComponent({ commentItem }: ReviewComponentProps): JSX.Element {
+
+  const { date, user, comment, rating } = commentItem;
+
+  const formatedDate = getFormatedDate(date);
+
+  const ratingStar = getRating(rating, ratingStars);
 
   return (
     <li className="reviews__item">
@@ -20,14 +29,14 @@ function ReviewComponent({ review }: ReviewComponentProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{ width: ratingStar }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
+        <time className="reviews__time" dateTime={date}>{formatedDate}</time>
       </div>
     </li>
   );

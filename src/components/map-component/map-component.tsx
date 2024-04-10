@@ -1,18 +1,21 @@
-import { TOffer, TCity } from '../../types/offers-types';
+import { TFullOffer } from '../../types/current-offer.ts';
+import {TCity } from '../../types/data-types.ts';
+import { TOffer } from '../../types/offer.ts';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from './../../consts/leaflet.js';
 import useMap from './useMap.tsx';
 import leaflet, { LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 
 type MapComponentProps = {
   className?: string;
   offers: TOffer[];
   city: TCity;
-  selectedOffer?: TOffer | null;
+  selectedOffer?: TFullOffer | TOffer | null;
+  currentOffer?: TFullOffer;
 }
 
-function MapComponent({ offers, city, selectedOffer, className }: MapComponentProps): JSX.Element {
+function MapComponent({ offers, city, selectedOffer, currentOffer, className }: MapComponentProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
@@ -49,8 +52,19 @@ function MapComponent({ offers, city, selectedOffer, className }: MapComponentPr
           })
           .addTo(map);
       });
+
+      if (currentOffer) {
+        leaflet
+          .marker({
+            lat: currentOffer.location.latitude,
+            lng: currentOffer.location.longitude,
+          }, {
+            icon: currentCustomIcon,
+          })
+          .addTo(map);
+      }
     }
-  }, [city.location.latitude, city.location.longitude, city.location.zoom, currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
+  }, [city.location.latitude, city.location.longitude, city.location.zoom, currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer, currentOffer]);
 
   return (
     <section
@@ -60,4 +74,6 @@ function MapComponent({ offers, city, selectedOffer, className }: MapComponentPr
   );
 }
 
-export default MapComponent;
+const Map = memo(MapComponent);
+
+export default Map;

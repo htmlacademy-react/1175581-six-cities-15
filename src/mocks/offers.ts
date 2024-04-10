@@ -1,4 +1,5 @@
-import { TOffer, TCity } from '../types/offers-types';
+import { TCity } from '../types/data-types';
+import { TOffer } from '../types/offer';
 
 export const offers: TOffer[] = [
   {

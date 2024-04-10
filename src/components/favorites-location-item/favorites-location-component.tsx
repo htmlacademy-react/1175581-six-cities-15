@@ -1,28 +1,46 @@
-import FavoriteArticleComponent from '../favorite-article-component/favorite-article-component';
-
-import { TOffer } from '../../types/offers-types';
+import { useDispatch } from 'react-redux';
+import { FavoriteImageSize } from '.';
+import { TCity} from '../../types/data-types';
+import PlaceCardComponent from '../place-card-component/place-card-component';
+import { changeCity } from '../../store/process/offers-process/offers-process';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../consts/route-consts';
+import { TOffer } from '../../types/offer';
 
 type FavoritesLocationProps = {
-  cityName: string;
+  city: TCity;
   currentFavorites: TOffer[];
 }
 
-function FavoritesLocationComponent({ cityName, currentFavorites }: FavoritesLocationProps): JSX.Element {
+function FavoritesLocationComponent({ city, currentFavorites }: FavoritesLocationProps): JSX.Element {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="#">
-            <span>{cityName}</span>
+          <a
+            className="locations__item-link"
+            href="#"
+            onClick={(evt) => {
+              evt.preventDefault();
+              dispatch(changeCity(city));
+              navigate(AppRoute.Main);
+            }}
+          >
+            <span>{city.name}</span>
           </a>
         </div>
       </div>
       <div className="favorites__places">
         {currentFavorites.map((currentFavorite) =>
           (
-            <FavoriteArticleComponent
+            <PlaceCardComponent
               key={currentFavorite.id}
-              currentFavorite={currentFavorite}
+              offer={currentFavorite}
+              block={'favorites'}
+              imgWidth={FavoriteImageSize.width}
+              imgHeight={FavoriteImageSize.height}
             />
           ))}
       </div>

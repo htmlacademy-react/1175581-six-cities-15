@@ -1,6 +1,7 @@
 import { AuthorizationStatus } from '../../consts/route-consts';
-import ReviewFormComponent from '../review-form/review-form-component';
-import ReviewsListComponent from '../reviews-list/reviews-list-component';
+import ReviewFormComponent from '../review-form-component/review-form-component';
+import ReviewsListComponent from '../reviews-list-component/reviews-list-component';
+
 
 type RewiewsComponentProps = {
   authorizationStatus: AuthorizationStatus;

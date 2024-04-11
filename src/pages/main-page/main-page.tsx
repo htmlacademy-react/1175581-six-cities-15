@@ -7,7 +7,7 @@ import { useCallback, useState } from 'react';
 import { useAppSelector } from '../../hooks/index.ts';
 
 import { CITIES } from '../../consts/cities.ts';
-import NoPlaceCardsComponent from '../../components/no-place-cards/no-place-cards-component.tsx';
+import NoPlaceCardsComponent from '../../components/no-place-cards-component/no-place-cards-component.tsx';
 import { getCurrentCity, getCurrentOffers, getSortType } from '../../store/process/offers-process/selectors.ts';
 import { TOffer } from '../../types/offer.ts';
 import { TFullOffer } from '../../types/current-offer.ts';

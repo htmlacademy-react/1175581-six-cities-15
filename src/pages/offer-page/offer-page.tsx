@@ -5,7 +5,7 @@ import { changeFavoriteAction, fetchCommentsAction, fetchCurrentOfferAction, fet
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../../components/book-mark-component/book-mark-component';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
+import { AppRoute, AuthorizationStatus } from '../../consts/routeConsts';
 import OfferPageImageComponent from '../../components/offer-page-image-component/offer-page-image-component';
 import PremiumComponent from '../../components/premium-component/premium-component';
 import { RATING_STARS } from '../../consts/rating';

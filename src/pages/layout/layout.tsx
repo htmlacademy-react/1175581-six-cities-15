@@ -2,7 +2,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import AuthComponent from '../../components/auth-component/auth-component';
 import NoAuthComponent from '../../components/no-auth-component/no-auth-component';
 import { useAppSelector } from '../../hooks';
-import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
+import { AppRoute, AuthorizationStatus } from '../../consts/routeConsts';
 import { WrapClassTypes, WrapClasses } from '.';
 import { getAuthStatus } from '../../store/process/user-process/selectors';
 

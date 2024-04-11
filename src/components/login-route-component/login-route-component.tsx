@@ -1,5 +1,5 @@
-import { AuthorizationStatus } from '../../consts/route-consts';
-import { AppRoute } from '../../consts/route-consts';
+import { AuthorizationStatus } from '../../consts/routeConsts';
+import { AppRoute } from '../../consts/routeConsts';
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getAuthStatus } from '../../store/process/user-process/selectors';

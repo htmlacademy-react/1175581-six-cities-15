@@ -3,7 +3,7 @@ export type TRatingStar = {
   width: string;
 }
 
-export const ratingStars : TRatingStar[] = [
+export const RATING_STARS : TRatingStar[] = [
   { value: 1, width: '20%' },
   { value: 2, width: '40%' },
   { value: 3, width: '60%' },

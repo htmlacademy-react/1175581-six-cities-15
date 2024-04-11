@@ -1,9 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
 import PremiumComponent from '../premium-component/premium-component';
-import { ratingStars } from '../../consts/rating';
+import { RATING_STARS } from '../../consts/rating';
 import { memo, useCallback } from 'react';
 import { getRating } from '../../consts/utils';
 import { changeBookMarkNearOffers } from '../../store/process/near-process/near-process';
@@ -26,7 +26,7 @@ function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHove
   const userStatus = useAppSelector(getAuthStatus);
   const { price, title, type, id, isFavorite, isPremium, rating } = offer;
   const ratingRounded = Math.round(rating);
-  const ratingStar = getRating(ratingRounded, ratingStars);
+  const ratingStar = getRating(ratingRounded, RATING_STARS);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

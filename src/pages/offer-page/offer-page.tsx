@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
 import OfferPageImageComponent from '../../components/offer-page-image-component/offer-page-image-component';
 import PremiumComponent from '../../components/premium-component/premium-component';
-import { ratingStars } from '../../consts/rating';
+import { RATING_STARS } from '../../consts/rating';
 import OfferInsideItemComponent from '../../components/offer-inside-item-component/offer-inside-item-component';
 import OfferHostComponent from '../../components/offer-host-component/offer-host-component';
 import { getImagesToShow, getRating } from '../../consts/utils';
@@ -60,7 +60,7 @@ function OfferPage(): JSX.Element {
 
   const ratingRounded = Math.round(rating);
 
-  const ratingStar = getRating(ratingRounded, ratingStars);
+  const ratingStar = getRating(ratingRounded, RATING_STARS);
 
   const handleBookMarkClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth && id) {
@@ -77,12 +77,12 @@ function OfferPage(): JSX.Element {
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
             {imagesToShow.map((image) =>
-            (
-              <OfferPageImageComponent
-                key={image}
-                image={image}
-              />
-            )
+              (
+                <OfferPageImageComponent
+                  key={image}
+                  image={image}
+                />
+              )
             )}
           </div>
         </div>
@@ -131,11 +131,11 @@ function OfferPage(): JSX.Element {
               <h2 className="offer__inside-title">What&apos;s inside</h2>
               <ul className="offer__inside-list">
                 {goods.map((good) =>
-                (
-                  <OfferInsideItemComponent
-                    key={good}
-                    good={good}
-                  />)
+                  (
+                    <OfferInsideItemComponent
+                      key={good}
+                      good={good}
+                    />)
                 )}
               </ul>
             </div>
@@ -164,13 +164,13 @@ function OfferPage(): JSX.Element {
           <div className="near-places__list places__list">
             {
               nearOffersToShow.map((offer: TOffer) =>
-              (
-                <PlaceCardComponent
-                  key={offer.id}
-                  offer={offer}
-                  block="near-places"
-                />
-              ))
+                (
+                  <PlaceCardComponent
+                    key={offer.id}
+                    offer={offer}
+                    block="near-places"
+                  />
+                ))
             }
           </div>
         </section>

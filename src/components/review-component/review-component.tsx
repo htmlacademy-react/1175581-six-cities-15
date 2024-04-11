@@ -1,5 +1,5 @@
 
-import { ratingStars } from '../../consts/rating';
+import { RATING_STARS } from '../../consts/rating';
 
 import { getFormatedDate, getRating } from '../../consts/utils';
 import { TComment } from '../../types/comments';
@@ -14,7 +14,7 @@ function ReviewComponent({ commentItem }: ReviewComponentProps): JSX.Element {
 
   const formatedDate = getFormatedDate(date);
 
-  const ratingStar = getRating(rating, ratingStars);
+  const ratingStar = getRating(rating, RATING_STARS);
 
   return (
     <li className="reviews__item">

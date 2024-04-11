@@ -2,7 +2,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import AuthComponent from '../../components/auth-component/auth-component';
 import NoAuthComponent from '../../components/no-auth-component/no-auth-component';
 import { useAppSelector } from '../../hooks';
-import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
+import { AppRoute, AuthorizationStatus } from '../../consts/routeConsts';
 import { WrapClassTypes, WrapClasses } from '.';
 import { getAuthStatus } from '../../store/process/user-process/selectors';
 
@@ -24,11 +24,13 @@ function Layout(): JSX.Element {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
               </Link>
             </div>
-            {pathname !== '/login' && authorizationStatus !== AuthorizationStatus.NoAuth ? (
+            {pathname !== '/login' ? (
               <nav className="header__nav">
-                <AuthComponent />
-              </nav>
-            ) : <NoAuthComponent />}
+                {authorizationStatus !== AuthorizationStatus.NoAuth ?
+                  <AuthComponent />
+                  : <NoAuthComponent />}
+              </nav>) : ''}
+
           </div>
         </div>
       </header>

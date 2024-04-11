@@ -1,8 +1,7 @@
-import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsComponent from '../../components/reviews-component/reviews-component';
 import MapComponent from '../../components/map-component/map-component';
 import PlaceCardComponent from '../../components/place-card-component/place-card-component';
-import { changeFavoriteAction, fetchCommentsAction, fetchCurrentOfferAction, fetchNearOffersAction} from '../../store/api-actions';
+import { changeFavoriteAction, fetchCommentsAction, fetchCurrentOfferAction, fetchNearOffersAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../../components/book-mark-component/book-mark-component';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -14,12 +13,15 @@ import OfferInsideItemComponent from '../../components/offer-inside-item-compone
 import OfferHostComponent from '../../components/offer-host-component/offer-host-component';
 import { getImagesToShow, getRating } from '../../consts/utils';
 import { useEffect } from 'react';
-import { changeBookMarkFullOffer } from '../../store/process/current-offer-process/current-offer-process';
+import { changeBookMarkFullOffer, clearOffer } from '../../store/process/current-offer-process/current-offer-process';
 import { getNearOffersToShow } from '../../store/process/near-process/selectors';
 import { getFullOffer } from '../../store/process/current-offer-process/selectors';
 import { getComments } from '../../store/process/comments-process/selectors';
 import { getAuthStatus } from '../../store/process/user-process/selectors';
 import { TOffer } from '../../types/offer';
+import { clearComments } from '../../store/process/comments-process/comments-process';
+import LoaderComponent from '../../components/loader-component/loader-component';
+import { clearNearOffers } from '../../store/process/near-process/near-process';
 
 function OfferPage(): JSX.Element {
 
@@ -39,10 +41,17 @@ function OfferPage(): JSX.Element {
       dispatch(fetchNearOffersAction(id));
       dispatch(fetchCommentsAction(id));
     }
+
+
+    dispatch(clearOffer());
+    dispatch(clearNearOffers());
+    dispatch(clearComments());
+
+
   }, [dispatch, id]);
 
   if (!fullOffer) {
-    return (<NotFoundPage />);
+    return (<LoaderComponent />);
   }
 
   const { price, title, bedrooms, maxAdults, goods, host, description, isFavorite, isPremium, rating, images } = fullOffer;
@@ -68,12 +77,12 @@ function OfferPage(): JSX.Element {
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
             {imagesToShow.map((image) =>
-              (
-                <OfferPageImageComponent
-                  key={image}
-                  image={image}
-                />
-              )
+            (
+              <OfferPageImageComponent
+                key={image}
+                image={image}
+              />
+            )
             )}
           </div>
         </div>
@@ -122,11 +131,11 @@ function OfferPage(): JSX.Element {
               <h2 className="offer__inside-title">What&apos;s inside</h2>
               <ul className="offer__inside-list">
                 {goods.map((good) =>
-                  (
-                    <OfferInsideItemComponent
-                      key={good}
-                      good={good}
-                    />)
+                (
+                  <OfferInsideItemComponent
+                    key={good}
+                    good={good}
+                  />)
                 )}
               </ul>
             </div>
@@ -155,13 +164,13 @@ function OfferPage(): JSX.Element {
           <div className="near-places__list places__list">
             {
               nearOffersToShow.map((offer: TOffer) =>
-                (
-                  <PlaceCardComponent
-                    key={offer.id}
-                    offer={offer}
-                    block="near-places"
-                  />
-                ))
+              (
+                <PlaceCardComponent
+                  key={offer.id}
+                  offer={offer}
+                  block="near-places"
+                />
+              ))
             }
           </div>
         </section>

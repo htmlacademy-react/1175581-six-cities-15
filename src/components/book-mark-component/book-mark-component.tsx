@@ -10,7 +10,7 @@ function BookMarkComponent({ isFavorite, onBookMarkClick, className, width, heig
 
   return (
     <button
-      className={isFavorite ? `${className}__bookmark-button--active button` : `${className}__bookmark-button button`}
+      className={ isFavorite ? `${className}__bookmark-button ${className}__bookmark-button--active button` : `${className}__bookmark-button button`}
       type="button"
       onClick={(evt) => {
         evt.preventDefault();

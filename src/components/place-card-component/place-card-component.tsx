@@ -54,54 +54,51 @@ function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHove
   };
 
   return (
-    <Link
-      to={`${AppRoute.Offer}/${id}`}
+    <article
+      className={`${block}__card place-card`}
+      onMouseEnter={handleMouseOn}
+      onMouseLeave={handleMouseOff}
+      onClick={() => navigate(AppRoute.Offer.replace(':id', String(id)))}
     >
-      <article
-        className={`${block}__card place-card`}
-        onMouseEnter={handleMouseOn}
-        onMouseLeave={handleMouseOff}
+      {isPremium ? <PremiumComponent className='place-card' /> : ''}
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
+        <div>
+          <img
+            className="place-card__image"
+            src={offer.previewImage} width={imgWidth ? imgWidth : 260}
+            height={imgHeight ? imgHeight : 200}
+            alt="Place image"
+          />
+        </div>
+      </div>
+      <div className={block === 'favorites' ? 'favorites__card-info place-card__info' :
+        'place-card__info'}
       >
-        {isPremium ? <PremiumComponent className='place-card' /> : ''}
-        <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-          <div>
-            <img
-              className="place-card__image"
-              src={offer.previewImage} width={imgWidth ? imgWidth : 260}
-              height={imgHeight ? imgHeight : 200}
-              alt="Place image"
-            />
+        <div className="place-card__price-wrapper">
+          <div className="place-card__price">
+            <b className="place-card__price-value">€{price}</b>
+            <span className="place-card__price-text">/&nbsp;night</span>
+          </div>
+          <BookMarkComponent
+            isFavorite={isFavorite}
+            onBookMarkClick={handleBookMarkClick}
+            className={'place-card'}
+            width={18}
+            height={19}
+          />
+        </div>
+        <div className="place-card__rating rating">
+          <div className="place-card__stars rating__stars">
+            <span style={{ width: ratingStar }} />
+            <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <div className={block === 'favorites' ? 'favorites__card-info place-card__info' :
-          'place-card__info'}
-        >
-          <div className="place-card__price-wrapper">
-            <div className="place-card__price">
-              <b className="place-card__price-value">€{price}</b>
-              <span className="place-card__price-text">/&nbsp;night</span>
-            </div>
-            <BookMarkComponent
-              isFavorite={isFavorite}
-              onBookMarkClick={handleBookMarkClick}
-              className={'place-card'}
-              width={18}
-              height={19}
-            />
-          </div>
-          <div className="place-card__rating rating">
-            <div className="place-card__stars rating__stars">
-              <span style={{ width: ratingStar }} />
-              <span className="visually-hidden">Rating</span>
-            </div>
-          </div>
-          <h2 className="place-card__name">
-            {title}
-          </h2>
-          <p className="place-card__type">{type}</p>
-        </div>
-      </article >
-    </Link>
+        <h2 className="place-card__name">
+          {title}
+        </h2>
+        <p className="place-card__type">{type}</p>
+      </div>
+    </article >
   );
 }
 

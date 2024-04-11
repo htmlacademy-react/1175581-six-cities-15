@@ -11,7 +11,7 @@ export const getsortedOffers = (sortType: SortingType, offers: TOffer[]) => {
     case sortTypes.HighToLow:
       return offers.toSorted((a, b) => b.price - a.price);
     case sortTypes.TopRatedFirst:
-      return offers.toSorted((a, b) => a.rating - b.rating);
+      return offers.toSorted((a, b) => b.rating - a.rating);
     default:
       return offers;
   }

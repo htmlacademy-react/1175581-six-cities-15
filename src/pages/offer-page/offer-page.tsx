@@ -1,5 +1,5 @@
 import NotFoundPage from '../not-found-page/not-found-page';
-import ReviewsComponent from '../../components/reviews/reviews-component';
+import ReviewsComponent from '../../components/reviews-component/reviews-component';
 import MapComponent from '../../components/map-component/map-component';
 import PlaceCardComponent from '../../components/place-card-component/place-card-component';
 import { changeFavoriteAction, fetchCommentsAction, fetchCurrentOfferAction, fetchNearOffersAction} from '../../store/api-actions';

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
@@ -41,11 +41,6 @@ function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHove
   }, [handleOfferHover]);
 
 
-  const handleOfferClick = useCallback(() => {
-    navigate(AppRoute.Offer.replace(':id', String(id)));
-  }, [id, navigate]);
-
-
   const handleBookMarkClick = () => {
     if (userStatus === AuthorizationStatus.Auth) {
       if (block === 'near-places') {
@@ -59,54 +54,54 @@ function PlaceCardComponent({ offer, block, imgWidth, imgHeight, handleOfferHove
   };
 
   return (
-    <article
-      className={`${block}__card place-card`}
-      onMouseEnter={handleMouseOn}
-      onMouseLeave={handleMouseOff}
-      onClick={(evt) => {
-        evt.preventDefault();
-        handleOfferClick();
-      }}
+    <Link
+      to={`${AppRoute.Offer}/${id}`}
     >
-      {isPremium ? <PremiumComponent className='place-card' /> : ''}
-      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-        <div>
-          <img
-            className="place-card__image"
-            src={offer.previewImage} width={imgWidth ? imgWidth : 260 }
-            height={imgHeight ? imgHeight : 200 }
-            alt="Place image"
-          />
-        </div>
-      </div>
-      <div className={block === 'favorites' ? 'favorites__card-info place-card__info' :
-        'place-card__info'}
+      <article
+        className={`${block}__card place-card`}
+        onMouseEnter={handleMouseOn}
+        onMouseLeave={handleMouseOff}
       >
-        <div className="place-card__price-wrapper">
-          <div className="place-card__price">
-            <b className="place-card__price-value">€{price}</b>
-            <span className="place-card__price-text">/&nbsp;night</span>
-          </div>
-          <BookMarkComponent
-            isFavorite={isFavorite}
-            onBookMarkClick={handleBookMarkClick}
-            className={'place-card'}
-            width={18}
-            height={19}
-          />
-        </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: ratingStar }} />
-            <span className="visually-hidden">Rating</span>
+        {isPremium ? <PremiumComponent className='place-card' /> : ''}
+        <div className={`${block}__image-wrapper place-card__image-wrapper`}>
+          <div>
+            <img
+              className="place-card__image"
+              src={offer.previewImage} width={imgWidth ? imgWidth : 260}
+              height={imgHeight ? imgHeight : 200}
+              alt="Place image"
+            />
           </div>
         </div>
-        <h2 className="place-card__name">
-          {title}
-        </h2>
-        <p className="place-card__type">{type}</p>
-      </div>
-    </article >
+        <div className={block === 'favorites' ? 'favorites__card-info place-card__info' :
+          'place-card__info'}
+        >
+          <div className="place-card__price-wrapper">
+            <div className="place-card__price">
+              <b className="place-card__price-value">€{price}</b>
+              <span className="place-card__price-text">/&nbsp;night</span>
+            </div>
+            <BookMarkComponent
+              isFavorite={isFavorite}
+              onBookMarkClick={handleBookMarkClick}
+              className={'place-card'}
+              width={18}
+              height={19}
+            />
+          </div>
+          <div className="place-card__rating rating">
+            <div className="place-card__stars rating__stars">
+              <span style={{ width: ratingStar }} />
+              <span className="visually-hidden">Rating</span>
+            </div>
+          </div>
+          <h2 className="place-card__name">
+            {title}
+          </h2>
+          <p className="place-card__type">{type}</p>
+        </div>
+      </article >
+    </Link>
   );
 }
 

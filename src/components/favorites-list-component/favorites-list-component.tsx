@@ -1,7 +1,6 @@
-import FavoritesLocationItemComponent from '../favorites-location-item/favorites-location-component';
-
 import { CITIES } from '../../consts/cities';
 import { TOffer } from '../../types/offer';
+import FavoritesLocationComponent from '../favorites-location-component/favorites-location-component';
 
 type FavoritesListProps = {
   favorites: TOffer[];
@@ -14,7 +13,7 @@ function FavoritesListComponent({ favorites }: FavoritesListProps): JSX.Element 
       {CITIES.map((city) => {
         const currentfavorites = favorites.filter((offer) => offer.city.name === city.name);
         return currentfavorites.length !== 0 ?
-          <FavoritesLocationItemComponent
+          <FavoritesLocationComponent
             key={city.name}
             city={city}
             currentFavorites={currentfavorites}

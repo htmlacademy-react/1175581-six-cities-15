@@ -1,6 +1,6 @@
-import { TCity } from '../types/offers-types';
+import { TCity } from '../types/data-types';
 
-export const cities: TCity[] = [{
+export const CITIES: TCity[] = [{
   name: 'Paris',
   location: {
     latitude: 48.85661,

@@ -1,14 +1,12 @@
 import { useDispatch } from 'react-redux';
-import { sort } from '../../store/action';
-import { sortTypes } from '../../consts/sort';
-import type { SortType } from '../../store/reducer';
 
+import { sort } from '../../store/process/offers-process/offers-process';
+import { SortingType} from '../../consts/sort';
 type SortComponentProps = {
-  type: string;
-  sortType: SortType;
+  sortType: SortingType;
 }
 
-function SortComponent({ type, sortType }: SortComponentProps): JSX.Element {
+function SortComponent({ sortType }: SortComponentProps): JSX.Element {
   const dispatch = useDispatch();
 
   return (
@@ -16,10 +14,10 @@ function SortComponent({ type, sortType }: SortComponentProps): JSX.Element {
       className="places__option places__option--active"
       tabIndex={0}
       onClick={() => {
-        dispatch(sort(sortTypes[type as keyof typeof sortTypes] as SortType));
+        dispatch(sort(sortType));
       }}
     >
-      {sortType.name}
+      {sortType}
     </li>
   );
 }

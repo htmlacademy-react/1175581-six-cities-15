@@ -1,19 +1,25 @@
 import ReviewComponent from '../review-component/review-component';
-import { TReview } from '../../types/reviews-types';
+import { useAppSelector } from '../../hooks';
+import { TComment } from '../../types/comments';
+import dayjs from 'dayjs';
+import { getComments } from '../../store/process/comments-process/selectors';
 
-type RewiewsListComponentProps = {
-  reviews: TReview[];
-}
+function ReviewsListComponent(): JSX.Element {
 
-function ReviewsListComponent({ reviews }: RewiewsListComponentProps): JSX.Element {
+  const comments = useAppSelector(getComments);
+
+  const commentsToShow = comments
+    .toSorted((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf())
+    .slice(0, 10);
+
   return (
     <ul className="reviews__list">
       {
-        reviews.map((review: TReview) =>
+        commentsToShow.map((commentItem: TComment) =>
           (
             <ReviewComponent
-              key={review.id}
-              review={review}
+              key={commentItem.id}
+              commentItem={commentItem}
             />
           ))
       }

@@ -1,17 +1,17 @@
 import dayjs from 'dayjs';
 
 import { TRatingStar } from './rating';
-import { sortTypes, type SortingType } from './sort';
+import { SORT_TYPES, type SortingType } from './sort';
 import { TOffer } from '../types/offer';
 
 export const getsortedOffers = (sortType: SortingType, offers: TOffer[]) => {
   switch (sortType) {
-    case sortTypes.LowToHigh:
+    case SORT_TYPES.LowToHigh:
       return offers.toSorted((a, b) => a.price - b.price);
-    case sortTypes.HighToLow:
+    case SORT_TYPES.HighToLow:
       return offers.toSorted((a, b) => b.price - a.price);
-    case sortTypes.TopRatedFirst:
-      return offers.toSorted((a, b) => a.rating - b.rating);
+    case SORT_TYPES.TopRatedFirst:
+      return offers.toSorted((a, b) => b.rating - a.rating);
     default:
       return offers;
   }

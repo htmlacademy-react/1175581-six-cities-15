@@ -1,25 +1,27 @@
-import NotFoundPage from '../not-found-page/not-found-page';
-import ReviewsComponent from '../../components/reviews/reviews-component';
+import ReviewsComponent from '../../components/reviews-component/reviews-component';
 import MapComponent from '../../components/map-component/map-component';
 import PlaceCardComponent from '../../components/place-card-component/place-card-component';
-import { changeFavoriteAction, fetchCommentsAction, fetchCurrentOfferAction, fetchNearOffersAction} from '../../store/api-actions';
+import { changeFavoriteAction, fetchCommentsAction, fetchCurrentOfferAction, fetchNearOffersAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../../components/book-mark-component/book-mark-component';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
 import OfferPageImageComponent from '../../components/offer-page-image-component/offer-page-image-component';
 import PremiumComponent from '../../components/premium-component/premium-component';
-import { ratingStars } from '../../consts/rating';
+import { RATING_STARS } from '../../consts/rating';
 import OfferInsideItemComponent from '../../components/offer-inside-item-component/offer-inside-item-component';
 import OfferHostComponent from '../../components/offer-host-component/offer-host-component';
 import { getImagesToShow, getRating } from '../../consts/utils';
 import { useEffect } from 'react';
-import { changeBookMarkFullOffer } from '../../store/process/current-offer-process/current-offer-process';
+import { changeBookMarkFullOffer, clearOffer } from '../../store/process/current-offer-process/current-offer-process';
 import { getNearOffersToShow } from '../../store/process/near-process/selectors';
 import { getFullOffer } from '../../store/process/current-offer-process/selectors';
 import { getComments } from '../../store/process/comments-process/selectors';
 import { getAuthStatus } from '../../store/process/user-process/selectors';
 import { TOffer } from '../../types/offer';
+import { clearComments } from '../../store/process/comments-process/comments-process';
+import LoaderComponent from '../../components/loader-component/loader-component';
+import { clearNearOffers } from '../../store/process/near-process/near-process';
 
 function OfferPage(): JSX.Element {
 
@@ -39,10 +41,17 @@ function OfferPage(): JSX.Element {
       dispatch(fetchNearOffersAction(id));
       dispatch(fetchCommentsAction(id));
     }
+
+
+    dispatch(clearOffer());
+    dispatch(clearNearOffers());
+    dispatch(clearComments());
+
+
   }, [dispatch, id]);
 
   if (!fullOffer) {
-    return (<NotFoundPage />);
+    return (<LoaderComponent />);
   }
 
   const { price, title, bedrooms, maxAdults, goods, host, description, isFavorite, isPremium, rating, images } = fullOffer;
@@ -51,7 +60,7 @@ function OfferPage(): JSX.Element {
 
   const ratingRounded = Math.round(rating);
 
-  const ratingStar = getRating(ratingRounded, ratingStars);
+  const ratingStar = getRating(ratingRounded, RATING_STARS);
 
   const handleBookMarkClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth && id) {

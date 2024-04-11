@@ -2,7 +2,7 @@ import SortComponent from '../sort-component/sort-component';
 import { useAppSelector } from '../../hooks';
 import { useDispatch } from 'react-redux';
 
-import { SortingType, sortTypes } from '../../consts/sort';
+import { SortingType, SORT_TYPES } from '../../consts/sort';
 import { displaySort } from '../../store/process/offers-process/offers-process';
 import { getIsSortOpened, getSortType } from '../../store/process/offers-process/selectors';
 
@@ -43,7 +43,7 @@ function SortListComponent(): JSX.Element {
         onClick={closeSort}
       >
         {
-          Object.entries(sortTypes).map(([key, sortType]) => (
+          Object.entries(SORT_TYPES).map(([key, sortType]) => (
             <SortComponent
               key={key}
               sortType={sortType as SortingType}

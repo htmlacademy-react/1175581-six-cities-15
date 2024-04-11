@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
-import { TCity } from '../../types/data-types';
+import { TCity } from '../types/data-types';
 import leaflet from 'leaflet';
 import { Map } from 'leaflet';
-import { MAIN_TILE, TILE_ATTRIBUTION } from '../../consts/leaflet';
+import { MAIN_TILE, TILE_ATTRIBUTION } from '../consts/leaflet';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, city:TCity) {
   const [map, setMap] = useState<Map | null>(null);

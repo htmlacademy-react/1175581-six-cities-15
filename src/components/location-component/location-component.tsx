@@ -3,7 +3,7 @@ import { useAppDispatch } from '../../hooks';
 import cn from 'classnames';
 
 import { TCity } from '../../types/data-types';
-import { SortingType, sortTypes } from '../../consts/sort';
+import { SortingType, SORT_TYPES } from '../../consts/sort';
 import { changeCity, sort } from '../../store/process/offers-process/offers-process';
 
 
@@ -26,7 +26,7 @@ function LocationComponent({ city, currentCity }: LocationComponentProps): JSX.E
         onClick={(evt) => {
           evt.preventDefault();
           dispatch(changeCity(city));
-          dispatch(sort(sortTypes.Default as SortingType));
+          dispatch(sort(SORT_TYPES.Default as SortingType));
         }}
       >
         <span>{city.name}</span>

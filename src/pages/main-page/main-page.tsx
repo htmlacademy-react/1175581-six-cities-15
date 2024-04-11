@@ -6,7 +6,7 @@ import SortListComponent from '../../components/sort-list-component/sort-list-co
 import { useCallback, useState } from 'react';
 import { useAppSelector } from '../../hooks/index.ts';
 
-import { cities } from '../../consts/cities.ts';
+import { CITIES } from '../../consts/cities.ts';
 import NoPlaceCardsComponent from '../../components/no-place-cards/no-place-cards-component.tsx';
 import { getCurrentCity, getCurrentOffers, getSortType } from '../../store/process/offers-process/selectors.ts';
 import { TOffer } from '../../types/offer.ts';
@@ -30,7 +30,7 @@ function MainPage(): JSX.Element {
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <LocationsListComponent
-          cities={cities}
+          cities={CITIES}
           currentCity={currentCity}
         />
       </div>

@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute } from '../consts/route-consts';
+import { AppRoute } from '../consts/routeConsts';
 import PrivateRoute from '../components/private-route-component/private-route-component';
 import Layout from '../pages/layout/layout';
 import MainPage from '../pages/main-page/main-page';

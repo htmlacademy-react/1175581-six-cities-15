@@ -1,4 +1,4 @@
-import { AuthorizationStatus } from '../../consts/route-consts';
+import { AuthorizationStatus } from '../../consts/routeConsts';
 import ReviewFormComponent from '../review-form-component/review-form-component';
 import ReviewsListComponent from '../reviews-list-component/reviews-list-component';
 

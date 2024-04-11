@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import BookMarkComponent from '../book-mark-component/book-mark-component';
-import { AppRoute, AuthorizationStatus } from '../../consts/route-consts';
+import { AppRoute, AuthorizationStatus } from '../../consts/routeConsts';
 import PremiumComponent from '../premium-component/premium-component';
 import { RATING_STARS } from '../../consts/rating';
 import { memo, useCallback } from 'react';

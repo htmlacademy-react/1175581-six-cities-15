@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '../../../consts/route-consts';
+import { AuthorizationStatus } from '../../../consts/routeConsts';
 import { checkAuthAction, loginAction, logoutAction } from '../../api-actions';
 import { UserData } from '../../../types/auth';
 
